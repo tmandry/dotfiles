@@ -4,7 +4,9 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/local/mysql/bin
 export RUBYOPT=rubygems
 export EDITOR=vim
-source ~/code/android/env.sh
+
+ANDROID_ENV="~/code/android/env.sh"
+[ -e "$ANDROID_ENV" ] && source $ANDROID_ENV
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
