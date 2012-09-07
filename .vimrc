@@ -111,6 +111,12 @@ noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 noremap H ^
 noremap L g_
 
+" Ctrl-j/k inserts blank line below/above, and Alt-j/k deletes.
+nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+
 " Set space to toggle folds
 nnoremap <Space> za
 vnoremap <Space> za
@@ -157,6 +163,10 @@ if has("unix")
   let s:uname = system("echo -n $(uname)")
   if s:uname == "Darwin"
     " Mac specific bindings
+
+    " Alt key doesn't seem to work on Mac, so use the actual char receieved
+    nnoremap <silent>∆ m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+    nnoremap <silent>˚ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 
     " Set font
     set gfn=Inconsolata:h14
@@ -216,17 +226,17 @@ let g:lisp_rainbow = 1
 
 " Set indentation functions
 function! AudiaTabs()
-	set tabstop=4
-	set shiftwidth=4
-	set softtabstop=4
-	set smarttab noexpandtab
+    set tabstop=4
+    set shiftwidth=4
+    set softtabstop=4
+    set smarttab noexpandtab
 endfunction
 
-function GoogleTabs()
-	set tabstop=2
-	set shiftwidth=2
-	set softtabstop=2
-	set smarttab expandtab
+function! GoogleTabs()
+    set tabstop=2
+    set shiftwidth=2
+    set softtabstop=2
+    set smarttab expandtab
 endfunction
 
 command! Goog call GoogleTabs()
