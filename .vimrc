@@ -1,13 +1,38 @@
-" Enable Pathogen
+" Use VIM settings, rather than Vi settings
+set nocompatible
 filetype on " Prevent an error exit code if filetype is off already
 filetype off
-call pathogen#runtime_append_all_bundles()
+
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+" Add your bundles here
+Bundle 'Syntastic'
+Bundle 'https://github.com/tpope/vim-fugitive'
+Bundle 'Tagbar'
+Bundle 'Mark'
+Bundle 'Command-T'
+Bundle 'Tabular'
+
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+endif
 
 " Turn on filetype based plugins
 filetype plugin indent on
-
-" Use VIM settings, rather than Vi settings
-set nocompatible
 
 " Always show the status line
 set laststatus=2
@@ -90,11 +115,6 @@ noremap L g_
 nnoremap <Space> za
 vnoremap <Space> za
 
-" Remap Ctrl-N and Ctrl-P to :next and :previous, respectively
-nnoremap <C-N> :next<Enter>
-nnoremap <C-P> :previous<Enter>
-set confirm
-
 " Have searches center the line the word is found on
 map N Nzz
 map n nzz
@@ -161,14 +181,14 @@ endif
 " Setup Command-T bindings
 noremap <Leader>o <Esc>:CommandT<CR>
 noremap <Leader>O <Esc>:CommandTFlush<CR>
-noremap <Leader>m <Esc>:CommandTBuffer<CR>
+"noremap <Leader>m <Esc>:CommandTBuffer<CR>
 let g:CommandTCancelMap='<Esc>' " Not sure why this was getting unset
 
 " Fugitive bindings
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>ga :Gadd<cr>
+"nnoremap <leader>ga :Gadd<cr>
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gco :Gcheckout<cr>
 nnoremap <leader>gci :Gcommit<cr>
@@ -182,14 +202,14 @@ vnoremap <leader>t :Tabularize /
 let g:Powerline_symbols="unicode"
 
 " Turn off syntastics syntax highlighting and signs
-let g:syntastic_enable_highlighting = 0
-let g:syntastic_enable_signs = 0
+"let g:syntastic_enable_highlighting = 0
+"let g:syntastic_enable_signs = 0
 
-augroup ft_fugitive
-    au!
-
-    au BufNewFile,BufRead .git/index setlocal nolist
-augroup END
+"augroup ft_fugitive
+"    au!
+"
+"    au BufNewFile,BufRead .git/index setlocal nolist
+"augroup END
 
 " Built-in LISP settings
 let g:lisp_rainbow = 1
@@ -317,57 +337,58 @@ au Filetype xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
 " Setup Binary Editing Mode
 " autocmds to automatically enter hex mode and handle file writes properly
-if has("autocmd")
-  " vim -b : edit binary using xxd-format!
-  augroup Binary
-    au!
+" This seems to break Fugitive for some reason, so currently disabled.
+"if has("autocmd")
+"  " vim -b : edit binary using xxd-format!
+"  augroup Binary
+"    au!
+"
+"    " set binary option for all binary files before reading them
+"    au BufReadPre *.bin,*.hex setlocal binary
+"
+"    " if on a fresh read the buffer variable is already set, it's wrong
+"    au BufReadPost *
+"          \ if exists('b:editHex') && b:editHex |
+"          \   let b:editHex = 0 |
+"          \ endif
+"
+"    " convert to hex on startup for binary files automatically
+"    au BufReadPost *
+"          \ if &binary | Hexmode | endif
+"
+"    " When the text is freed, the next time the buffer is made active it will
+"    " re-read the text and thus not match the correct mode, we will need to
+"    " convert it again if the buffer is again loaded.
+"    au BufUnload *
+"          \ if getbufvar(expand("<afile>"), 'editHex') == 1 |
+"          \   call setbufvar(expand("<afile>"), 'editHex', 0) |
+"          \ endif
+"
+"    " before writing a file when editing in hex mode, convert back to non-hex
+"    au BufWritePre *
+"          \ if exists("b:editHex") && b:editHex && &binary |
+"          \  let oldro=&ro | let &ro=0 |
+"          \  let oldma=&ma | let &ma=1 |
+"          \  silent exe "%!xxd -r" |
+"          \  let &ma=oldma | let &ro=oldro |
+"          \  unlet oldma | unlet oldro |
+"          \ endif
+"
+"    " after writing a binary file, if we're in hex mode, restore hex mode
+"    au BufWritePost *
+"          \ if exists("b:editHex") && b:editHex && &binary |
+"          \  let oldro=&ro | let &ro=0 |
+"          \  let oldma=&ma | let &ma=1 |
+"          \  silent exe "%!xxd" |
+"          \  exe "set nomod" |
+"          \  let &ma=oldma | let &ro=oldro |
+"          \  unlet oldma | unlet oldro |
+"          \ endif
+"  augroup END
+"endif
 
-    " set binary option for all binary files before reading them
-    au BufReadPre *.bin,*.hex setlocal binary
 
-    " if on a fresh read the buffer variable is already set, it's wrong
-    au BufReadPost *
-          \ if exists('b:editHex') && b:editHex |
-          \   let b:editHex = 0 |
-          \ endif
-
-    " convert to hex on startup for binary files automatically
-    au BufReadPost *
-          \ if &binary | Hexmode | endif
-
-    " When the text is freed, the next time the buffer is made active it will
-    " re-read the text and thus not match the correct mode, we will need to
-    " convert it again if the buffer is again loaded.
-    au BufUnload *
-          \ if getbufvar(expand("<afile>"), 'editHex') == 1 |
-          \   call setbufvar(expand("<afile>"), 'editHex', 0) |
-          \ endif
-
-    " before writing a file when editing in hex mode, convert back to non-hex
-    au BufWritePre *
-          \ if exists("b:editHex") && b:editHex && &binary |
-          \  let oldro=&ro | let &ro=0 |
-          \  let oldma=&ma | let &ma=1 |
-          \  silent exe "%!xxd -r" |
-          \  let &ma=oldma | let &ro=oldro |
-          \  unlet oldma | unlet oldro |
-          \ endif
-
-    " after writing a binary file, if we're in hex mode, restore hex mode
-    au BufWritePost *
-          \ if exists("b:editHex") && b:editHex && &binary |
-          \  let oldro=&ro | let &ro=0 |
-          \  let oldma=&ma | let &ma=1 |
-          \  silent exe "%!xxd" |
-          \  exe "set nomod" |
-          \  let &ma=oldma | let &ro=oldro |
-          \  unlet oldma | unlet oldro |
-          \ endif
-  augroup END
-endif
-
-
-" Who doesn't live Nyan cat?
+" Who doesn't love Nyan cat?
 function! NyanMe() " {{{
     hi NyanFur             guifg=#BBBBBB
     hi NyanPoptartEdge     guifg=#ffd0ac
