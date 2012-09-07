@@ -57,11 +57,13 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+UNAME=`uname`
+
+# enable color support of ls and grep on linux
+if [[ "$UNAME" == "Linux" && -x /usr/bin/dircolors ]]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     # WARNING: enabling this can cause multi-second delays due to NFS latency
-    #alias ls='ls --color=auto'
+    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -70,11 +72,32 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# enable color support of ls on mac
+if [ "$UNAME" == "Darwin" ]; then
+    alias ls='ls -G'
+fi
+
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x "`which lesspipe`" ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x "`which lesspipe.sh`" ] && export LESSOPEN="|lesspipe.sh %s"
 
 # RVM support
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 if [[ -s /Users/YOURUSERNAME/.rvm/scripts/rvm ]] ; then source /Users/YOURUSERNAME/.rvm/scripts/rvm ; fi
+
+# Add things specific to a given system (i.e. that shouldn't be in git)
+# in .bashrc_local
+[ -f ~/.bashrc_local ] && source ~/.bashrc_local
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
