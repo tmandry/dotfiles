@@ -27,8 +27,8 @@ HISTFILESIZE=2000
 shopt -s checkwinsize
 
 # Completion support
-source $HOME/.git-completion.bash
-source $HOME/.git-prompt.sh
+[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
+[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWSTASHSTATE=true
 
