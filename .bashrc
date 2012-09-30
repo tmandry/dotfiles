@@ -29,8 +29,8 @@ shopt -s checkwinsize
 # Completion support
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
-export GIT_PS1_SHOWDIRTYSTATE=true
-export GIT_PS1_SHOWSTASHSTATE=true
+#export GIT_PS1_SHOWDIRTYSTATE=true
+#export GIT_PS1_SHOWSTASHSTATE=true
 
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 # We have color support; assume it's compliant with Ecma-48
