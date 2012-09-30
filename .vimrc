@@ -24,6 +24,7 @@ Bundle 'Tagbar'
 Bundle 'Mark'
 Bundle 'Command-T'
 Bundle 'Tabular'
+Bundle 'https://github.com/peterhoeg/vim-qml.git'
 
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
