@@ -145,34 +145,34 @@ nnoremap <leader>b :b#<CR>
 " Toggle ctags
 nmap <F8> :TagbarToggle<CR>
 
-if has("unix")
-  let s:uname = system("echo -n $(uname)")
-  if s:uname == "Darwin"
-    " Mac specific bindings
-
-    " Alt key doesn't seem to work on Mac, so use the actual char receieved
-    nnoremap <silent>∆ m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-    nnoremap <silent>˚ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
-
-    " Set font
-    set gfn=Inconsolata:h14
-
-  else
-    " Linux specific bindings
-
-    " Set font
-    set gfn=Inconsolata\ 12
-
-    "Bind copy and paste to Ctrl-Shift-C/V
-    vnoremap <C-C> "+y
-    nnoremap <C-C> "+yy
-    noremap <C-V> "+p
-    imap <C-V> <Esc><C-V>a
-    cnoremap <C-V> <C-R>+
-    cnoremap <C-V> <C-R>+
-
-  endif
-endif
+"if has("unix")
+"  let s:uname = system("echo -n $(uname)")
+"  if s:uname == "Darwin"
+"    " Mac specific bindings
+"
+"    " Alt key doesn't seem to work on Mac, so use the actual char receieved
+"    nnoremap <silent>∆ m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+"    nnoremap <silent>˚ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+"
+"    " Set font
+"    set gfn=Inconsolata:h14
+"
+"  else
+"    " Linux specific bindings
+"
+"    " Set font
+"    set gfn=Inconsolata\ 12
+"
+"    "Bind copy and paste to Ctrl-Shift-C/V
+"    vnoremap <C-C> "+y
+"    nnoremap <C-C> "+yy
+"    noremap <C-V> "+p
+"    imap <C-V> <Esc><C-V>a
+"    cnoremap <C-V> <C-R>+
+"    cnoremap <C-V> <C-R>+
+"
+"  endif
+"endif
 
 " Setup Command-T bindings
 noremap <Leader>o <Esc>:CommandT<CR>
