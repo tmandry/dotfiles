@@ -207,9 +207,6 @@ let g:Powerline_symbols="unicode"
 "    au BufNewFile,BufRead .git/index setlocal nolist
 "augroup END
 
-" Built-in LISP settings
-let g:lisp_rainbow = 1
-
 " Set indentation functions
 function! AudiaTabs()
     set tabstop=4
@@ -268,32 +265,8 @@ if has("gui_running")
   set guioptions-=T
 endif
 
-" Set go filetype
-au BufNewFile,BufRead *.go set filetype=go
-
-" Set .y filetype to happy
-"   This may need to be changed back if I need to write something with yacc
-au BufNewFile,BufRead *.y set filetype=happy
-
-" Setup custom notes filetype
-au BufNewFile,BufRead *.notes nnoremap <leader>s :SPCheck<CR>
-
-" Set alex filetype
-au BufNewFile,BufRead *.x set filetype=alex
-
-" Set sjs filetype
-au BufNewFile,BufRead *.sjs set filetype=javascript
-" Set njs filetype
-au BufNewFile,BufRead *.njs set filetype=javascript
-" Set asm to MASM
-au BufNewFile,Bufread *.asm set filetype=masm
-au BufNewFile,Bufread *.ASM set filetype=masm
-
 " Setup django templating highlighting for all html
 au BufNewFile,Bufread *.html set filetype=htmldjango tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-
-" Setup the file type for EBNFs
-au BufNewFile,BufRead *.ebnf set filetype=ebnf
 
 " Setup the filetype for markdown
 au BufNewFile,BufRead *.md set filetype=markdown
@@ -316,9 +289,6 @@ au Filetype cpp set tabstop=2 shiftwidth=2 expandtab
 " Set indentention for Make files
 au Filetype make set noexpandtab
 
-" Set indentation for Go files
-au Filetype go setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
-
 " Set indentation for HTML files
 au Filetype html set tabstop=2 shiftwidth=2 expandtab
 au FileType xhtml set tabstop=2 shiftwidth=2 expandtab
@@ -329,9 +299,3 @@ au Filetype tex let dialect='US'
 
 " Set settings for XML files
 au Filetype xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-
-" Alt+arrow split navigation
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
