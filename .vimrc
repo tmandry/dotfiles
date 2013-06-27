@@ -3,34 +3,7 @@ set nocompatible
 filetype on " Prevent an error exit code if filetype is off already
 filetype off
 
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-
-" Add your bundles here
-Bundle 'Syntastic'
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'Tagbar'
-Bundle 'Mark'
-Bundle 'Command-T'
-Bundle 'Tabular'
-Bundle 'https://github.com/peterhoeg/vim-qml.git'
-
-if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
+source ~/.vim/vundle.vim
 
 " Turn on filetype based plugins
 filetype plugin indent on
