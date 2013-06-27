@@ -18,6 +18,7 @@ set ttyfast
 set history=1000
 
 " Persistent undos
+set undolevels=10000
 if v:version >= 730
   set undofile
   set undoreload=10000
@@ -76,6 +77,7 @@ set showcmd
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Fix the leader to be something a little nicer
+let localmapleader=","
 let mapleader=","
 
 " Make it easier to clear search results
@@ -115,6 +117,16 @@ map <A-j> <C-w>j
 map <A-k> <C-w>k
 map <A-l> <C-w>l
 map <A-h> <C-w>h
+
+" Resize window splits
+" TODO Fix mousewheel
+nnoremap <Up>    3<C-w>-
+nnoremap <Down>  3<C-w>+
+nnoremap <Left>  3<C-w><
+nnoremap <Right> 3<C-w>>
+
+nnoremap _ :split<cr>
+nnoremap \| :vsplit<cr>
 
 " Make j/k work as expected with wrapped lines
 map j gj
@@ -318,6 +330,11 @@ au Filetype tex let dialect='US'
 " Set settings for XML files
 au Filetype xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
+" Alt+arrow split navigation
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
 
 " Setup Binary Editing Mode
 " autocmds to automatically enter hex mode and handle file writes properly
