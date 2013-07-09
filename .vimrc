@@ -180,6 +180,15 @@ au CursorHold * checktime
 "  endif
 "endif
 
+" Treat tmux like normal xterm
+if &term == "screen-256color"
+  set term=xterm-256color
+end
+
+" Set window title based on current file
+if &term == "xterm" || &term == "xterm-256color"
+  set title
+end
 
 " Fugitive bindings
 nnoremap <leader>gd :Gdiff<cr>
