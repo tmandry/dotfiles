@@ -88,8 +88,8 @@ noremap H ^
 noremap L g_
 
 " Ctrl-j/k inserts blank line below/above, and Alt-j/k deletes.
-nnoremap <silent><C-A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><C-A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 
@@ -128,6 +128,9 @@ nnoremap <Right> 3<C-w>>
 nnoremap _ :split<cr>
 nnoremap \| :vsplit<cr>
 
+" C-t for new tab
+map <C-t> :tabnew<CR>
+
 " Make j/k work as expected with wrapped lines
 map j gj
 map k gk
@@ -144,6 +147,9 @@ nnoremap <leader>b :b#<CR>
 
 " Toggle ctags
 nmap <F8> :TagbarToggle<CR>
+
+" After 4s of inactivity, check for external file modifications on next keypress
+au CursorHold * checktime
 
 "if has("unix")
 "  let s:uname = system("echo -n $(uname)")
