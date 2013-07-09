@@ -180,11 +180,6 @@ au CursorHold * checktime
 "  endif
 "endif
 
-" Setup Command-T bindings
-noremap <Leader>o <Esc>:CommandT<CR>
-noremap <Leader>O <Esc>:CommandTFlush<CR>
-"noremap <Leader>m <Esc>:CommandTBuffer<CR>
-let g:CommandTCancelMap='<Esc>' " Not sure why this was getting unset
 
 " Fugitive bindings
 nnoremap <leader>gd :Gdiff<cr>
