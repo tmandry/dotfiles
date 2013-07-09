@@ -29,6 +29,8 @@ Bundle 'Tabular'
 Bundle 'https://github.com/peterhoeg/vim-qml.git'
 " Surround things with quotes, parens, etc.
 Bundle 'tpope/vim-surround'
+" Multiple cursors
+Bundle 'terryma/vim-multiple-cursors'
 
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
