@@ -12,3 +12,7 @@ cp -Rs "$HOME/.dotfiles/".[!.]* "$HOME"
 rm -rf .git
 
 echo "done."
+
+echo
+echo "For fish colors, open fish and type:"
+echo ". ~/.config/fish/set_colors.fish"
