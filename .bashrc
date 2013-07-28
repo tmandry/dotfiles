@@ -2,7 +2,6 @@
 
 # Environment vairables
 export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/local/mysql/bin
-export RUBYOPT=rubygems
 export EDITOR=vim
 
 ANDROID_ENV="~/code/android/env.sh"
@@ -89,6 +88,10 @@ alias l='ls -CF'
 # RVM support
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 if [[ -s /Users/YOURUSERNAME/.rvm/scripts/rvm ]] ; then source /Users/YOURUSERNAME/.rvm/scripts/rvm ; fi
+
+# rubygems support
+export RUBYOPT=rubygems
+alias brew='RUBYOPT= brew'
 
 # Add things specific to a given system (i.e. that shouldn't be in git)
 # in .bashrc_local
