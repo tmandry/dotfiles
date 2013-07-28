@@ -3,34 +3,7 @@ set nocompatible
 filetype on " Prevent an error exit code if filetype is off already
 filetype off
 
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-
-" Add your bundles here
-Bundle 'Syntastic'
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'Tagbar'
-Bundle 'Mark'
-Bundle 'Command-T'
-Bundle 'Tabular'
-Bundle 'https://github.com/peterhoeg/vim-qml.git'
-
-if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
-endif
+source ~/.vim/vundle.vim
 
 " Turn on filetype based plugins
 filetype plugin indent on
@@ -45,6 +18,7 @@ set ttyfast
 set history=1000
 
 " Persistent undos
+set undolevels=10000
 if v:version >= 730
   set undofile
   set undoreload=10000
@@ -103,6 +77,7 @@ set showcmd
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Fix the leader to be something a little nicer
+let localmapleader=","
 let mapleader=","
 
 " Make it easier to clear search results
@@ -143,6 +118,19 @@ map <A-k> <C-w>k
 map <A-l> <C-w>l
 map <A-h> <C-w>h
 
+" Resize window splits
+" TODO Fix mousewheel
+nnoremap <Up>    3<C-w>-
+nnoremap <Down>  3<C-w>+
+nnoremap <Left>  3<C-w><
+nnoremap <Right> 3<C-w>>
+
+nnoremap _ :split<cr>
+nnoremap \| :vsplit<cr>
+
+" C-t for new tab
+map <C-t> :tabnew<CR>
+
 " Make j/k work as expected with wrapped lines
 map j gj
 map k gk
@@ -160,40 +148,47 @@ nnoremap <leader>b :b#<CR>
 " Toggle ctags
 nmap <F8> :TagbarToggle<CR>
 
-if has("unix")
-  let s:uname = system("echo -n $(uname)")
-  if s:uname == "Darwin"
-    " Mac specific bindings
+" After 4s of inactivity, check for external file modifications on next keypress
+au CursorHold * checktime
 
-    " Alt key doesn't seem to work on Mac, so use the actual char receieved
-    nnoremap <silent>∆ m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-    nnoremap <silent>˚ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+"if has("unix")
+"  let s:uname = system("echo -n $(uname)")
+"  if s:uname == "Darwin"
+"    " Mac specific bindings
+"
+"    " Alt key doesn't seem to work on Mac, so use the actual char receieved
+"    nnoremap <silent>∆ m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+"    nnoremap <silent>˚ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+"
+"    " Set font
+"    set gfn=Inconsolata:h14
+"
+"  else
+"    " Linux specific bindings
+"
+"    " Set font
+"    set gfn=Inconsolata\ 12
+"
+"    "Bind copy and paste to Ctrl-Shift-C/V
+"    vnoremap <C-C> "+y
+"    nnoremap <C-C> "+yy
+"    noremap <C-V> "+p
+"    imap <C-V> <Esc><C-V>a
+"    cnoremap <C-V> <C-R>+
+"    cnoremap <C-V> <C-R>+
+"
+"  endif
+"endif
 
-    " Set font
-    set gfn=Inconsolata:h14
+" Treat tmux like normal xterm
+if &term == "screen-256color"
+  set term=xterm-256color
+end
 
-  else
-    " Linux specific bindings
-
-    " Set font
-    set gfn=Inconsolata\ 12
-
-    "Bind copy and paste to Ctrl-Shift-C/V
-    vnoremap <C-C> "+y
-    nnoremap <C-C> "+yy
-    noremap <C-V> "+p
-    imap <C-V> <Esc><C-V>a
-    cnoremap <C-V> <C-R>+
-    cnoremap <C-V> <C-R>+
-
-  endif
-endif
-
-" Setup Command-T bindings
-noremap <Leader>o <Esc>:CommandT<CR>
-noremap <Leader>O <Esc>:CommandTFlush<CR>
-"noremap <Leader>m <Esc>:CommandTBuffer<CR>
-let g:CommandTCancelMap='<Esc>' " Not sure why this was getting unset
+" Set window title based on current file
+if &term == "xterm" || &term == "xterm-256color"
+  set title
+end
 
 " Fugitive bindings
 nnoremap <leader>gd :Gdiff<cr>
@@ -221,9 +216,6 @@ let g:Powerline_symbols="unicode"
 "
 "    au BufNewFile,BufRead .git/index setlocal nolist
 "augroup END
-
-" Built-in LISP settings
-let g:lisp_rainbow = 1
 
 " Set indentation functions
 function! AudiaTabs()
@@ -283,32 +275,8 @@ if has("gui_running")
   set guioptions-=T
 endif
 
-" Set go filetype
-au BufNewFile,BufRead *.go set filetype=go
-
-" Set .y filetype to happy
-"   This may need to be changed back if I need to write something with yacc
-au BufNewFile,BufRead *.y set filetype=happy
-
-" Setup custom notes filetype
-au BufNewFile,BufRead *.notes nnoremap <leader>s :SPCheck<CR>
-
-" Set alex filetype
-au BufNewFile,BufRead *.x set filetype=alex
-
-" Set sjs filetype
-au BufNewFile,BufRead *.sjs set filetype=javascript
-" Set njs filetype
-au BufNewFile,BufRead *.njs set filetype=javascript
-" Set asm to MASM
-au BufNewFile,Bufread *.asm set filetype=masm
-au BufNewFile,Bufread *.ASM set filetype=masm
-
 " Setup django templating highlighting for all html
 au BufNewFile,Bufread *.html set filetype=htmldjango tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-
-" Setup the file type for EBNFs
-au BufNewFile,BufRead *.ebnf set filetype=ebnf
 
 " Setup the filetype for markdown
 au BufNewFile,BufRead *.md set filetype=markdown
@@ -331,9 +299,6 @@ au Filetype cpp set tabstop=2 shiftwidth=2 expandtab
 " Set indentention for Make files
 au Filetype make set noexpandtab
 
-" Set indentation for Go files
-au Filetype go setlocal noexpandtab tabstop=4 softtabstop=4 shiftwidth=4
-
 " Set indentation for HTML files
 au Filetype html set tabstop=2 shiftwidth=2 expandtab
 au FileType xhtml set tabstop=2 shiftwidth=2 expandtab
@@ -344,173 +309,3 @@ au Filetype tex let dialect='US'
 
 " Set settings for XML files
 au Filetype xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-
-
-" Setup Binary Editing Mode
-" autocmds to automatically enter hex mode and handle file writes properly
-" This seems to break Fugitive for some reason, so currently disabled.
-"if has("autocmd")
-"  " vim -b : edit binary using xxd-format!
-"  augroup Binary
-"    au!
-"
-"    " set binary option for all binary files before reading them
-"    au BufReadPre *.bin,*.hex setlocal binary
-"
-"    " if on a fresh read the buffer variable is already set, it's wrong
-"    au BufReadPost *
-"          \ if exists('b:editHex') && b:editHex |
-"          \   let b:editHex = 0 |
-"          \ endif
-"
-"    " convert to hex on startup for binary files automatically
-"    au BufReadPost *
-"          \ if &binary | Hexmode | endif
-"
-"    " When the text is freed, the next time the buffer is made active it will
-"    " re-read the text and thus not match the correct mode, we will need to
-"    " convert it again if the buffer is again loaded.
-"    au BufUnload *
-"          \ if getbufvar(expand("<afile>"), 'editHex') == 1 |
-"          \   call setbufvar(expand("<afile>"), 'editHex', 0) |
-"          \ endif
-"
-"    " before writing a file when editing in hex mode, convert back to non-hex
-"    au BufWritePre *
-"          \ if exists("b:editHex") && b:editHex && &binary |
-"          \  let oldro=&ro | let &ro=0 |
-"          \  let oldma=&ma | let &ma=1 |
-"          \  silent exe "%!xxd -r" |
-"          \  let &ma=oldma | let &ro=oldro |
-"          \  unlet oldma | unlet oldro |
-"          \ endif
-"
-"    " after writing a binary file, if we're in hex mode, restore hex mode
-"    au BufWritePost *
-"          \ if exists("b:editHex") && b:editHex && &binary |
-"          \  let oldro=&ro | let &ro=0 |
-"          \  let oldma=&ma | let &ma=1 |
-"          \  silent exe "%!xxd" |
-"          \  exe "set nomod" |
-"          \  let &ma=oldma | let &ro=oldro |
-"          \  unlet oldma | unlet oldro |
-"          \ endif
-"  augroup END
-"endif
-
-
-" Who doesn't love Nyan cat?
-function! NyanMe() " {{{
-    hi NyanFur             guifg=#BBBBBB
-    hi NyanPoptartEdge     guifg=#ffd0ac
-    hi NyanPoptartFrosting guifg=#fd3699 guibg=#fe98ff
-    hi NyanRainbow1        guifg=#6831f8
-    hi NyanRainbow2        guifg=#0099fc
-    hi NyanRainbow3        guifg=#3cfa04
-    hi NyanRainbow4        guifg=#fdfe00
-    hi NyanRainbow5        guifg=#fc9d00
-    hi NyanRainbow6        guifg=#fe0000
-
-
-    echohl NyanRainbow1
-    echon "≈"
-    echohl NyanRainbow2
-    echon "≋"
-    echohl NyanRainbow3
-    echon "≈"
-    echohl NyanRainbow4
-    echon "≋"
-    echohl NyanRainbow5
-    echon "≈"
-    echohl NyanRainbow6
-    echon "≋"
-    echohl NyanRainbow1
-    echon "≈"
-    echohl NyanRainbow2
-    echon "≋"
-    echohl NyanRainbow3
-    echon "≈"
-    echohl NyanRainbow4
-    echon "≋"
-    echohl NyanRainbow5
-    echon "≈"
-    echohl NyanRainbow6
-    echon "≋"
-    echohl None
-    echo ""
-
-    echohl NyanRainbow1
-    echon "≈"
-    echohl NyanRainbow2
-    echon "≋"
-    echohl NyanRainbow3
-    echon "≈"
-    echohl NyanRainbow4
-    echon "≋"
-    echohl NyanRainbow5
-    echon "≈"
-    echohl NyanRainbow6
-    echon "≋"
-    echohl NyanRainbow1
-    echon "≈"
-    echohl NyanRainbow2
-    echon "≋"
-    echohl NyanRainbow3
-    echon "≈"
-    echohl NyanRainbow4
-    echon "≋"
-    echohl NyanRainbow5
-    echon "≈"
-    echohl NyanRainbow6
-    echon "≋"
-    echohl NyanFur
-    echon "╰"
-    echohl NyanPoptartEdge
-    echon "⟨"
-    echohl NyanPoptartFrosting
-    echon "⣮⣯⡿"
-    echohl NyanPoptartEdge
-    echon "⟩"
-    echohl NyanFur
-    echon "⩾^ω^⩽"
-    echohl None
-    echo ""
-
-    echohl NyanRainbow1
-    echon "≈"
-    echohl NyanRainbow2
-    echon "≋"
-    echohl NyanRainbow3
-    echon "≈"
-    echohl NyanRainbow4
-    echon "≋"
-    echohl NyanRainbow5
-    echon "≈"
-    echohl NyanRainbow6
-    echon "≋"
-    echohl NyanRainbow1
-    echon "≈"
-    echohl NyanRainbow2
-    echon "≋"
-    echohl NyanRainbow3
-    echon "≈"
-    echohl NyanRainbow4
-    echon "≋"
-    echohl NyanRainbow5
-    echon "≈"
-    echohl NyanRainbow6
-    echon "≋"
-    echohl None
-    echon " "
-    echohl NyanFur
-    echon "”   ‟"
-    echohl None
-
-    sleep 1
-    redraw
-    echo " "
-    echo " "
-    echo "Noms?"
-    redraw
-endfunction " }}}
-command! NyanMe call NyanMe()
