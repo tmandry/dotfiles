@@ -59,6 +59,12 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# marks
+bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+#bindsym $mod+apostrophe mark "'"; exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: '
+bindsym $mod+apostrophe exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Mark: '
+bindsym $mod+$alt+apostrophe [con_mark="'"] focus
+
 # split in horizontal orientation
 bindsym $mod+backslash split h
 
@@ -108,6 +114,12 @@ bindsym $mod+Shift+ampersand move workspace 7
 bindsym $mod+Shift+asterisk move workspace 8
 bindsym $mod+Shift+parenleft move workspace 9
 bindsym $mod+Shift+parenright move workspace 10
+
+# move workspace to another screen
+bindsym $mod+Shift+Control+H move workspace to output left
+bindsym $mod+Shift+Control+J move workspace to output down
+bindsym $mod+Shift+Control+K move workspace to output up
+bindsym $mod+Shift+Control+L move workspace to output right
 
 # remember where I came from so I don't have to
 workspace_auto_back_and_forth yes
