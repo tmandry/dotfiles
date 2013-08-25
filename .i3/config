@@ -181,3 +181,6 @@ bar {
         status_command i3status
 	font pango:DejaVu Sans 11
 }
+
+# Make Hangouts windows floating
+for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable
