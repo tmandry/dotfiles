@@ -32,6 +32,9 @@ bindsym $mod+d exec dmenu_run
 # lock screen
 bindsym $mod+$alt+l exec gnome-screensaver-command -l
 
+# sleep
+bindsym $mod+$alt+XF86Eject exec dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
