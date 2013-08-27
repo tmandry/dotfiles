@@ -135,6 +135,9 @@ map <C-t> :tabnew<CR>
 map j gj
 map k gk
 
+" Save and exit insert mode using kj
+inoremap kj <Esc>:w<CR>
+
 " These don't have bindings anyways
 command Wq wq
 command WQ wq
