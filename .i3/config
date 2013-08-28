@@ -182,5 +182,6 @@ bar {
 	font pango:DejaVu Sans 11
 }
 
-# Make Hangouts windows floating
-for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable
+# Set certain windows to be floating by default
+for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable  # Hangouts
+for_window [class="Arandr"] floating enable
