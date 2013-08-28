@@ -136,3 +136,7 @@ bar {
 # Set certain windows to be floating by default
 for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable  # Hangouts
 for_window [class="Arandr"] floating enable
+
+# Screen layout shortcuts
+bindsym $mod+Shift+Control+exclam exec ~/.screenlayout/1.sh
+bindsym $mod+Shift+Control+at exec ~/.screenlayout/2-r.sh
