@@ -135,7 +135,11 @@ bar {
 
 # Set certain windows to be floating by default
 for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable  # Hangouts
+for_window [instance="crx_hgmnkflcjcohihpdcniifjbafcdelhlm"] floating enable  # Tabman
 for_window [class="Arandr"] floating enable
+for_window [class="Bluetooth-wizard"] floating enable
+for_window [class="Fluxgui.py"] floating enable
+for_window [class="Gnome-control-center"] floating enable
 
 # Screen layout shortcuts
 bindsym $mod+Shift+Control+exclam exec ~/.screenlayout/1.sh
