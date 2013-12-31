@@ -3,6 +3,8 @@ set nocompatible
 filetype on " Prevent an error exit code if filetype is off already
 filetype off
 
+set shell=/bin/bash
+
 source ~/.vim/vundle.vim
 
 " Turn on filetype based plugins
