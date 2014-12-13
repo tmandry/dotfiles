@@ -3,6 +3,8 @@ set nocompatible
 filetype on " Prevent an error exit code if filetype is off already
 filetype off
 
+set shell=/bin/bash
+
 source ~/.vim/vundle.vim
 
 " Turn on filetype based plugins
@@ -134,6 +136,9 @@ map <C-t> :tabnew<CR>
 " Make j/k work as expected with wrapped lines
 map j gj
 map k gk
+
+" Save and exit insert mode using kj
+inoremap kj <Esc>:w<CR>
 
 " These don't have bindings anyways
 command Wq wq

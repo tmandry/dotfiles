@@ -1,0 +1,14 @@
+[user]
+	email = tmandry@gmail.com
+	name = Tyler Mandry
+[push]
+	default = upstream
+[color]
+	ui = true
+[core]
+	editor = vim
+[rerere]
+	enabled = true
+[alias]
+	co = checkout
+	rb = rebase

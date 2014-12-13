@@ -25,12 +25,14 @@ Bundle 'Mark'
 Bundle 'kien/ctrlp.vim'
 " Align things
 Bundle 'Tabular'
-" Qt QML highlighting
-Bundle 'https://github.com/peterhoeg/vim-qml.git'
 " Surround things with quotes, parens, etc.
 Bundle 'tpope/vim-surround'
 " Multiple cursors
 Bundle 'terryma/vim-multiple-cursors'
+
+" Syntax highlighting
+Bundle 'https://github.com/peterhoeg/vim-qml.git'
+Bundle 'derekwyatt/vim-scala'
 
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
