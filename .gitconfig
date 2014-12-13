@@ -2,13 +2,19 @@
 	email = tmandry@gmail.com
 	name = Tyler Mandry
 [push]
-	default = upstream
+	default = tracking
 [color]
-	ui = true
+	ui = auto
 [core]
 	editor = vim
+	excludesfile = ~/.gitignore_global
 [rerere]
 	enabled = true
+	autoupdate = true
 [alias]
 	co = checkout
 	rb = rebase
+[rebase]
+	stat = true
+[credential]
+	helper = osxkeychain
