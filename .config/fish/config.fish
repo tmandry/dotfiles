@@ -5,26 +5,14 @@ function fish_user_key_bindings
         vi_mode_insert
 end
 
-alias apt=aptitude
+abbr apt aptitude
 
-function make_completion --argument alias command
-    complete -c $alias -xa "(
-        set -l cmd (commandline -pc | sed -e 's/^ *\S\+ *//' );
-        complete -C\"$command \$cmd\";
-    )"
-end
+abbr be bundle exec
 
-function g; git $argv; end
-make_completion g git
-
-function gco; git co $argv; end
-make_completion gco 'git checkout'
-
-function grb; git rb $argv; end
-make_completion grb 'git rebase'
-
-function gcm; git commit $argv; end
-make_completion gcm 'git commit'
-
-function ga; git add $argv; end
-make_completion ga 'git add'
+abbr g git
+abbr gcam git commit -am
+abbr gcaa git commit -a --amend
+abbr gcm git commit -m
+abbr gs git status
+abbr gd git diff
+abbr ga git add
