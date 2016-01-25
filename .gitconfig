@@ -18,3 +18,7 @@
 	stat = true
 [credential]
 	helper = osxkeychain
+[diff]
+	tool = vimdiff
+[difftool]
+  prompt = true
