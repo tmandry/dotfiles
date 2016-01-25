@@ -1,11 +1,26 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'geoffharcourt/one-dark.vim'
+Plug 'godlygeek/tabular'
+Plug 'keith/swift.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/Mark--Karkat'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
+Plug 'scrooloose/nerdtree'
+
+call plug#end()
+
 " Use VIM settings, rather than Vi settings
 set nocompatible
-filetype on " Prevent an error exit code if filetype is off already
-filetype off
+"filetype on " Prevent an error exit code if filetype is off already
+"filetype off
 
 set shell=/bin/bash
-
-source ~/.vim/vundle.vim
 
 " Turn on filetype based plugins
 filetype plugin indent on
@@ -44,9 +59,6 @@ set mouse=a
 
 " Turn on line numbers
 set nu
-
-" Set visual bell rather than audible bell
-set vb
 
 " Have ctags look all the way up to root for a tags file
 set tags=tags;/
@@ -107,18 +119,19 @@ map n nzz
 vnoremap > >gv
 vnoremap < <gv
 
-" Bind eclim commands
-"map <F2> :ProjectsTree<CR>
-
 " Bind NERDTree commands
 map <F2> :NERDTreeToggle<CR>
 map <C-c> <Leader>ci
 
 " Work better with splits
-map <A-j> <C-w>j
-map <A-k> <C-w>k
-map <A-l> <C-w>l
-map <A-h> <C-w>h
+noremap <C-A-j> <C-w>j
+noremap <C-A-k> <C-w>k
+noremap <C-A-l> <C-w>l
+noremap <C-A-h> <C-w>h
+tnoremap <C-A-h> <C-\><C-n><C-w>h
+tnoremap <C-A-j> <C-\><C-n><C-w>j
+tnoremap <C-A-k> <C-\><C-n><C-w>k
+tnoremap <C-A-l> <C-\><C-n><C-w>l
 
 " Resize window splits
 " TODO Fix mousewheel
@@ -141,17 +154,14 @@ map k gk
 inoremap kj <Esc>:w<CR>
 
 " These don't have bindings anyways
-command Wq wq
-command WQ wq
-command W w
-command Q q
+command! Wq wq
+command! WQ wq
+command! W w
+command! Q q
 nnoremap W :w<cr>
 
 " Make it easier to go to the last buffer
 nnoremap <leader>b :b#<CR>
-
-" Toggle ctags
-nmap <F8> :TagbarToggle<CR>
 
 " After 4s of inactivity, check for external file modifications on next keypress
 au CursorHold * checktime
@@ -164,24 +174,6 @@ au CursorHold * checktime
 "    " Alt key doesn't seem to work on Mac, so use the actual char receieved
 "    nnoremap <silent>∆ m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 "    nnoremap <silent>˚ m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
-"
-"    " Set font
-"    set gfn=Inconsolata:h14
-"
-"  else
-"    " Linux specific bindings
-"
-"    " Set font
-"    set gfn=Inconsolata\ 12
-"
-"    "Bind copy and paste to Ctrl-Shift-C/V
-"    vnoremap <C-C> "+y
-"    nnoremap <C-C> "+yy
-"    noremap <C-V> "+p
-"    imap <C-V> <Esc><C-V>a
-"    cnoremap <C-V> <C-R>+
-"    cnoremap <C-V> <C-R>+
-"
 "  endif
 "endif
 
@@ -207,38 +199,22 @@ nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
 
-vnoremap <leader>t :Tabularize /
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+  nmap <Leader>aa :Tabularize /
+  vmap <Leader>aa :Tabularize /
 
-" Set Powerline to use unicode rather than compatible
-let g:Powerline_symbols="unicode"
+  " Swift multi-line parameter lists
+  vmap <Leader>aP :Tabularize /\w*:<CR>
+endif
 
-" Turn off syntastics syntax highlighting and signs
-"let g:syntastic_enable_highlighting = 0
-"let g:syntastic_enable_signs = 0
-
-"augroup ft_fugitive
-"    au!
-"
-"    au BufNewFile,BufRead .git/index setlocal nolist
-"augroup END
-
-" Set indentation functions
-function! AudiaTabs()
-    set tabstop=4
-    set shiftwidth=4
-    set softtabstop=4
-    set smarttab noexpandtab
-endfunction
-
-function! GoogleTabs()
-    set tabstop=2
-    set shiftwidth=2
-    set softtabstop=2
-    set smarttab expandtab
-endfunction
-
-command! Goog call GoogleTabs()
-command! Audia call AudiaTabs()
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set smarttab expandtab
 
 " Have it keep changes to open buffers without saving to the files
 set hidden
@@ -249,17 +225,15 @@ let g:SuperTabDefaultCompletionType="context"
 " Prevents Vim 7.0 from setting filetype to 'plaintex'
 let g:tex_flavor='latex'
 
-
 " Ignore silly files
 set wildignore=*.o,*.obj,*.bak,*.exe,*.hi,*.6
 
 " Set colorscheme
 set background=dark
-colorscheme koehler
+colorscheme onedark
 
 " Force vim to use 256 colors
 set t_Co=256
-
 
 " Mark trailing whitespace
 set listchars=tab:\ \ ,trail:\ ,extends:»,precedes:«
@@ -274,43 +248,17 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-
 " Remove the toolbar if it's macvim or gvim
 if has("gui_running")
   set guioptions-=T
 endif
 
-" Setup django templating highlighting for all html
-au BufNewFile,Bufread *.html set filetype=htmldjango tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-
 " Setup the filetype for markdown
 au BufNewFile,BufRead *.md set filetype=markdown
-
-" Set indentation for Python according to Google Style Guide
-au FileType python set tabstop=4 shiftwidth=4 softtabstop=4 expandtab textwidth=79
-
-" Set indentation for Haskell according to the snap style guide
-au FileType haskell set tabstop=4 shiftwidth=4 softtabstop=4 expandtab textwidth=78
-
-" Set indentation for Ruby according to Google Style Guide
-au Filetype ruby set tabstop=2 shiftwidth=2 expandtab
-
-" Set indentation for C according to Google Style Guide
-au Filetype c set tabstop=2 shiftwidth=2 expandtab
-
-" Set indentation for C++ according to Google Style Guide
-au Filetype cpp set tabstop=2 shiftwidth=2 expandtab
 
 " Set indentention for Make files
 au Filetype make set noexpandtab
 
-" Set indentation for HTML files
-au Filetype html set tabstop=2 shiftwidth=2 expandtab
-au FileType xhtml set tabstop=2 shiftwidth=2 expandtab
-
 " Set settings for LaTeX files
 au Filetype tex SPCheck
 au Filetype tex let dialect='US'
-
-" Set settings for XML files
-au Filetype xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
