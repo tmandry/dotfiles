@@ -1,9 +1,11 @@
 set -x EDITOR vim
 
 function fish_user_key_bindings
-	. ~/.config/fish/vi-mode.fish
-        vi_mode_insert
+  fish_vi_key_bindings
+  # put default key bindings back in insert mode
+  fish_default_key_bindings -M insert
 end
+set -g fish_key_bindings fish_user_key_bindings
 
 abbr apt aptitude
 
@@ -16,3 +18,6 @@ abbr gcm git commit -m
 abbr gs git status
 abbr gd git diff
 abbr ga git add
+abbr gl1 git log -1
+abbr fx git commit -m \'fx\'
+abbr afx git commit -am \'fx\'
