@@ -142,13 +142,17 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-"tnoremap <C-l> <C-\><C-n><C-w>l
+if has('nvim')
+  tnoremap <C-h> <C-\><C-n><C-w>h
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  "tnoremap <C-l> <C-\><C-n><C-w>l
+endif
 autocmd BufWinEnter,WinEnter term://* startinsert | set mouse=vchi | sleep 100m | set mouse=a
 autocmd BufLeave term://* stopinsert | set mouse=a
-autocmd TermOpen * setlocal statusline=%{b:term_title}
+if has('nvim')
+  autocmd TermOpen * setlocal statusline=%{b:term_title}
+endif
 
 " Resize window splits
 " TODO Fix mousewheel
