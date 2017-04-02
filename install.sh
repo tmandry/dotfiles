@@ -2,6 +2,7 @@
 set -e
 
 # Requires GNU utils. Set these to the paths you need.
+# Install with: brew install coreutils findutils
 CP=gcp
 FIND=gfind
 
