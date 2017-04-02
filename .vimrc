@@ -10,8 +10,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/Mark--Karkat'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
 Plug 'scrooloose/nerdtree'
+"Plug 'racer-rust/vim-racer'
+Plug 'vim-misc'
+Plug 'xolox/vim-session'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sebastianmarkow/deoplete-rust'
+Plug 'zchee/deoplete-jedi'
+Plug 'vim-syntastic/syntastic'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -94,6 +102,12 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 let localmapleader=","
 let mapleader=","
 
+" Move , functionality to ? (which I never use)
+noremap ? ,
+
+" Replace all occurrences of a word
+nnoremap <leader>R :%s/<C-r><C-w>//g<Left><Left>
+
 " Make it easier to clear search results
 noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 
@@ -102,10 +116,10 @@ noremap H ^
 noremap L g_
 
 " Ctrl-j/k inserts blank line below/above, and Alt-j/k deletes.
-nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent><C-e> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><C-q> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent><A-e> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent><A-q> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 
 " Set space to toggle folds
 nnoremap <Space> za
@@ -124,14 +138,17 @@ map <F2> :NERDTreeToggle<CR>
 map <C-c> <Leader>ci
 
 " Work better with splits
-noremap <C-A-j> <C-w>j
-noremap <C-A-k> <C-w>k
-noremap <C-A-l> <C-w>l
-noremap <C-A-h> <C-w>h
-tnoremap <C-A-h> <C-\><C-n><C-w>h
-tnoremap <C-A-j> <C-\><C-n><C-w>j
-tnoremap <C-A-k> <C-\><C-n><C-w>k
-tnoremap <C-A-l> <C-\><C-n><C-w>l
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+"tnoremap <C-l> <C-\><C-n><C-w>l
+autocmd BufWinEnter,WinEnter term://* startinsert | set mouse=vchi | sleep 100m | set mouse=a
+autocmd BufLeave term://* stopinsert | set mouse=a
+autocmd TermOpen * setlocal statusline=%{b:term_title}
 
 " Resize window splits
 " TODO Fix mousewheel
@@ -158,7 +175,7 @@ command! Wq wq
 command! WQ wq
 command! W w
 command! Q q
-nnoremap W :w<cr>
+nnoremap S :w<cr>
 
 " Make it easier to go to the last buffer
 nnoremap <leader>b :b#<CR>
@@ -200,15 +217,15 @@ nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
 
 if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-  nmap <Leader>aa :Tabularize /
-  vmap <Leader>aa :Tabularize /
+  nmap <leader>a= :Tabularize /=<CR>
+  vmap <leader>a= :Tabularize /=<CR>
+  nmap <leader>a: :Tabularize /:\zs<CR>
+  vmap <leader>a: :Tabularize /:\zs<CR>
+  nmap <leader>aa :Tabularize /
+  vmap <leader>aa :Tabularize /
 
   " Swift multi-line parameter lists
-  vmap <Leader>aP :Tabularize /\w*:<CR>
+  vmap <leader>aP :Tabularize /\w*:<CR>
 endif
 
 set tabstop=2
@@ -262,3 +279,35 @@ au Filetype make set noexpandtab
 " Set settings for LaTeX files
 au Filetype tex SPCheck
 au Filetype tex let dialect='US'
+
+" Racer settings
+set hidden
+let g:racer_cmd="/Users/tyler/.cargo/bin/racer"
+let $RUST_SRC_PATH="/Users/tyler/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
+let g:racer_experimental_completer=1
+
+" deoplete settings
+let g:deoplete#enable_at_startup = 1
+
+" deoplete-rust settings
+let g:deoplete#sources#rust#racer_binary="/Users/tyler/.cargo/bin/racer"
+let g:deoplete#sources#rust#rust_source_path="/Users/tyler/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
+nmap <buffer> gs <plug>DeopleteRustGoToDefinitionSplit
+nmap <buffer> gv <plug>DeopleteRustGoToDefinitionVSplit
+nmap <buffer> gb <plug>DeopleteRustGoToDefinitionTab
+
+" vim-session settings
+let g:session_autosave='yes'
+let g:session_periodic_autosave=2
+
+" Syntastic settings
+"set statusline=%f\ %h%w%m%r\ 
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"set statusline+=%=%(%l,%c%V\ %=\ %P%)
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_rust_checkers = ['rustc']

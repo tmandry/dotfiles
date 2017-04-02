@@ -366,17 +366,17 @@ var sml = 0.05;
 
 // Focus
 
-api.bind('h', ['alt'], function(){ win().focusWindowLeft(); });
-api.bind('l', ['alt'], function(){ win().focusWindowRight(); });
-api.bind('k', ['alt'], function(){ win().focusWindowUp(); });
-api.bind('j', ['alt'], function(){ win().focusWindowDown(); });
+// api.bind('h', ['alt'], function(){ win().focusWindowLeft(); });
+// api.bind('l', ['alt'], function(){ win().focusWindowRight(); });
+// api.bind('k', ['alt'], function(){ win().focusWindowUp(); });
+// api.bind('j', ['alt'], function(){ win().focusWindowDown(); });
 
 // Movement
 
-api.bind('h', ['alt', 'shift'], function(){ win().shift(-sml, 0); })
-api.bind('l', ['alt', 'shift'], function(){ win().shift(+sml, 0); })
-api.bind('k', ['alt', 'shift'], function(){ win().shift(0, -sml); })
-api.bind('j', ['alt', 'shift'], function(){ win().shift(0, +sml); })
+// api.bind('h', ['alt', 'shift'], function(){ win().shift(-sml, 0); })
+// api.bind('l', ['alt', 'shift'], function(){ win().shift(+sml, 0); })
+// api.bind('k', ['alt', 'shift'], function(){ win().shift(0, -sml); })
+// api.bind('j', ['alt', 'shift'], function(){ win().shift(0, +sml); })
 
 api.bind('h', ['alt', 'shift', 'cmd'], function(){ win().push('left') });
 api.bind('l', ['alt', 'shift', 'cmd'], function(){ win().push('right') });
@@ -417,7 +417,7 @@ api.bind('down',  ['alt', 'cmd', 'shift'], function(){ win().resize(0.0, +sml, '
 
 // Misc
 
-api.bind('f', ['alt'], function(){ win().toggleFullscreen() });
+// api.bind('f', ['alt'], function(){ win().toggleFullscreen() });
 
 api.bind('enter', ['alt'], function(){ api.launch('iTerm') });
 
