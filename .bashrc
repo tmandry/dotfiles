@@ -82,8 +82,8 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x "`which lesspipe`" ] && eval "$(SHELL=/bin/sh lesspipe)"
-[ -x "`which lesspipe.sh`" ] && export LESSOPEN="|lesspipe.sh %s"
+#[ -x "`which lesspipe`" ] && eval "$(SHELL=/bin/sh lesspipe)"
+#[ -x "`which lesspipe.sh`" ] && export LESSOPEN="|lesspipe.sh %s"
 
 # RVM support
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

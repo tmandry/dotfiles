@@ -13,11 +13,11 @@ Plug 'vim-scripts/Mark--Karkat'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
 Plug 'scrooloose/nerdtree'
 "Plug 'racer-rust/vim-racer'
-Plug 'vim-misc'
+Plug 'vim-scripts/vim-misc'
 Plug 'xolox/vim-session'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'sebastianmarkow/deoplete-rust'
-Plug 'zchee/deoplete-jedi'
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'sebastianmarkow/deoplete-rust'
+"Plug 'zchee/deoplete-jedi'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 

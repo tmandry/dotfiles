@@ -1,5 +1,5 @@
 [user]
-	email = tmandry@gmail.com
+	email = tmandry@boltzmannpv.com
 	name = Tyler Mandry
 [push]
 	default = tracking
@@ -22,3 +22,8 @@
 	tool = vimdiff
 [difftool]
   prompt = true
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
