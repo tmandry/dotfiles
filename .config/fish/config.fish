@@ -1,5 +1,5 @@
 set -x EDITOR vim
-set -U fish_key_bindings fish_user_key_bindings
+#set -U fish_key_bindings fish_user_key_bindings
 
 abbr apt aptitude
 
