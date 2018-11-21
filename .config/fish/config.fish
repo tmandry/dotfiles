@@ -1,11 +1,5 @@
 set -x EDITOR vim
-
-function fish_user_key_bindings
-  fish_vi_key_bindings
-  # put default key bindings back in insert mode
-  fish_default_key_bindings -M insert
-end
-set -g fish_key_bindings fish_user_key_bindings
+#set -U fish_key_bindings fish_user_key_bindings
 
 abbr apt aptitude
 

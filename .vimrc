@@ -152,11 +152,13 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 noremap <C-'> <C-w><C-p>
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-;> <C-\><C-n><C-w>l
-tnoremap <C-'> <C-\><C-n><C-w><C-p>
+if has('nvim')
+  tnoremap <C-h> <C-\><C-n><C-w>h
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  tnoremap <C-;> <C-\><C-n><C-w>l
+  tnoremap <C-'> <C-\><C-n><C-w><C-p>
+endif
 set splitright
 set splitbelow
 
@@ -169,6 +171,7 @@ augroup terminal
 
   autocmd TermOpen * setlocal statusline=%{b:term_title} nonumber norelativenumber
 augroup END
+
 command! BT call BottomTerminal()
 command! Term term fish
 function! BottomTerminal()
