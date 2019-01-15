@@ -474,6 +474,7 @@ let g:session_periodic_autosave=2
 "let g:syntastic_check_on_wq = 0
 "let g:syntastic_rust_checkers = ['rustc']
 let g:syntastic_python_checkers = ['python']
+let g:syntasic_cpp_compiler_options = '-std=c++14'
 
 """ Swift
 
