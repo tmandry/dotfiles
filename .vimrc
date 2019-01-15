@@ -120,7 +120,9 @@ let mapleader=","
 noremap ? ,
 
 " Replace all occurrences of a word
-nnoremap <leader>e :%s/<C-r><C-w>//g<Left><Left>
+nnoremap <leader>e :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <leader>R :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
+vnoremap <leader>R "hy:%s/<C-r>h/<C-r>h/gc<Left><Left><Left>
 
 " Make it easier to clear search results
 noremap <leader><space> :noh<cr>
@@ -551,6 +553,3 @@ let g:xcode_runner_command = 'terminal {cmd}'
 call airline#parts#define_function('xcscheme', 'g:xcode#scheme')
 call airline#parts#define_condition('xcscheme', '&filetype =~ "swift"')
 let g:airline_section_y = airline#section#create(['xcscheme'])
-
-nnoremap <leader>R :%s/<C-r><C-w>/<C-r><C-w>/g<Left><Left>
-vnoremap <leader>R "hy:%s/<C-r>h/<C-r>h/gc<Left><Left><Left>
