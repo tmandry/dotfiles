@@ -14,7 +14,13 @@ Plug 'inkarkat/vim-OnSyntaxChange'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer' }
 Plug 'scrooloose/nerdtree'
 "Plug 'racer-rust/vim-racer'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'roxma/nvim-yarp'
+endif
 Plug 'sebastianmarkow/deoplete-rust'
 Plug 'zchee/deoplete-jedi'
 Plug 'vim-syntastic/syntastic'
@@ -152,7 +158,7 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 noremap <C-'> <C-w><C-p>
-if has('nvim')
+if has('nvim') || has('terminal')
   tnoremap <C-h> <C-\><C-n><C-w>h
   tnoremap <C-j> <C-\><C-n><C-w>j
   tnoremap <C-k> <C-\><C-n><C-w>k
@@ -169,7 +175,9 @@ augroup terminal
   autocmd BufWinEnter,WinEnter term://* startinsert | set mouse=vchi | sleep 100m | set mouse=a
   autocmd BufLeave term://* stopinsert | set mouse=a
 
-  autocmd TermOpen * setlocal statusline=%{b:term_title} nonumber norelativenumber
+  if has('nvim')
+    autocmd TermOpen * setlocal statusline=%{b:term_title} nonumber norelativenumber
+  endif
 augroup END
 
 command! BT call BottomTerminal()
@@ -373,9 +381,9 @@ end
 match ExtraWhitespace /\s\+$/
 augroup match_extra_whitespace
   autocmd!
-  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinEnter * if &l:buftype != 'terminal' | match ExtraWhitespace /\s\+$/ | endif
+  autocmd InsertEnter * if &l:buftype != 'terminal' | match ExtraWhitespace /\s\+\%#\@<!$/ | endif
+  autocmd InsertLeave * if &l:buftype != 'terminal' | match ExtraWhitespace /\s\+$/ | endif
   autocmd BufWinLeave * call clearmatches()
 augroup END
 
