@@ -2,7 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'godlygeek/tabular'
 Plug 'keith/swift.vim'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -21,9 +21,10 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
   Plug 'roxma/nvim-yarp'
 endif
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'sebastianmarkow/deoplete-rust'
 Plug 'zchee/deoplete-jedi'
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'vim-airline/vim-airline'
@@ -32,8 +33,18 @@ Plug 'mitsuse/autocomplete-swift'
 Plug 'tmandry/vim-one'
 Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
+Plug 'w0rp/ale'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'bkad/CamelCaseMotion'
+if !has('nvim')
+  Plug 'drmikehenry/vim-fixkey'
+endif
+
+Plug 'zefei/vim-wintabs'
+Plug 'zefei/vim-wintabs'
+Plug 'zefei/vim-wintabs-powerline'
 
 call plug#end()
 
@@ -42,7 +53,7 @@ set nocompatible
 "filetype on " Prevent an error exit code if filetype is off already
 "filetype off
 
-set shell=/bin/bash
+set shell=/usr/local/bin/fish
 
 " Turn on filetype based plugins
 filetype plugin indent on
@@ -131,6 +142,29 @@ noremap <leader><space> :noh<cr>
 noremap H ^
 noremap L g_
 
+" CamelCaseMotion (and snake case!)
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
+omap <silent> iw <Plug>CamelCaseMotion_iw
+xmap <silent> iw <Plug>CamelCaseMotion_iw
+omap <silent> ib <Plug>CamelCaseMotion_ib
+xmap <silent> ib <Plug>CamelCaseMotion_ib
+omap <silent> ie <Plug>CamelCaseMotion_ie
+xmap <silent> ie <Plug>CamelCaseMotion_ie
+
+map <silent> <leader>w <S-Right>
+map <silent> <leader>b <S-Left>
+omap <silent> <leader>w <S-Right>
+omap <silent> <leader>b <S-Left>
+xmap <silent> <leader>w <S-Right>
+xmap <silent> <leader>b <S-Left>
+
 " Alt-i/o inserts blank line below/above.
 nnoremap <silent><A-i> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><A-o> :set paste<CR>m`O<Esc>``:set nopaste<CR>
@@ -150,7 +184,8 @@ vnoremap > >gv
 vnoremap < <gv
 
 " Bind NERDTree commands
-map <F2> :NERDTreeToggle<CR>
+map <F2> :NERDTreeTabsToggle<CR>
+map <F3> :NERDTreeToggle<CR>
 map <F8> :TagbarToggle<CR>
 "map <C-c> <Leader>ci
 
@@ -169,18 +204,41 @@ if has('nvim') || has('terminal')
 endif
 set splitright
 set splitbelow
+set noequalalways
 
 " Terminal
 augroup terminal
   autocmd!
-  " Automatically go into terminal mode when enterint terminal.
-  autocmd BufWinEnter,WinEnter term://* startinsert | set mouse=vchi | sleep 100m | set mouse=a
-  autocmd BufLeave term://* stopinsert | set mouse=a
 
   if has('nvim')
+    " Automatically go into terminal mode when enterint terminal.
+    autocmd BufWinEnter,WinEnter term://* startinsert | set mouse=vchi | sleep 100m | set mouse=a
+    autocmd BufLeave term://* stopinsert | set mouse=a
+
+    autocmd BufWinEnter,WinEnter !* feedkeys('i') | set mouse=vchi | sleep 100m | set mouse=a
+    autocmd BufLeave !* stopinsert | set mouse=a
+
     autocmd TermOpen * setlocal statusline=%{b:term_title} nonumber norelativenumber
+  elseif has('terminal')
+    autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | call EnterVimTerminal() | endif
+
+    autocmd TerminalOpen * setlocal nonumber norelativenumber | call term_setkill('', 'term')
+
+    function! EnterVimTerminal()
+      try
+        normal! i
+      catch /E21/ " Cannot make changes, 'modifiable' is off
+        " Still seems to work even when it throws this error.
+      "catch /E490/ " No fold found
+        " I don't know why this error occurs, but we don't want it.
+        " Seems to be fixed in Vim 8.1.
+      endtry
+    endfunction
   endif
 augroup END
+if has('nvim') || has('terminal')
+  tnoremap <C-\><C-v> <C-\><C-n>pi
+endif
 
 command! BT call BottomTerminal()
 command! Term term fish
@@ -284,6 +342,11 @@ nnoremap S :w<cr>
 nnoremap <leader>b :b#<CR>
 nnoremap <leader>M :MarkClear<CR>
 
+" CtrlP
+" Disable switching buffers when opening files.
+let g:ctrlp_switch_buffer = '0'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
 " After 4s of inactivity, check for external file modifications on next keypress
 au CursorHold * checktime
 
@@ -368,10 +431,15 @@ colorscheme one
 " Force vim to use 256 colors
 set t_Co=256
 
+" Move around tabs and buffers
 nnoremap ]t gt
 nnoremap [t gT
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
+
+" Move around in command line (doesn't work..)
+"cmap <M-b> <S-Left>
+"cmap <M-f> <S-Right>
 
 " Mark trailing whitespace
 set listchars=tab:\ \ ,trail:\ ,extends:»,precedes:«
@@ -429,8 +497,11 @@ augroup rust_textwidth
   autocmd User SyntaxRustCommentLeaveA setlocal tw=100
 augroup END
 
+"let g:ale_linters = {'rust': ['rls']}
+let g:ale_linters = {'rust': ['cargo']}
+
 " deoplete settings
-call deoplete#enable()
+"call deoplete#enable()
 
 " deoplete-rust settings
 let g:deoplete#sources#rust#racer_binary="/Users/tyler/.cargo/bin/racer"
@@ -438,6 +509,30 @@ let g:deoplete#sources#rust#rust_source_path="/Users/tyler/.multirust/toolchains
 nmap <buffer> gs <plug>DeopleteRustGoToDefinitionSplit
 nmap <buffer> gv <plug>DeopleteRustGoToDefinitionVSplit
 nmap <buffer> gb <plug>DeopleteRustGoToDefinitionTab
+
+" ctags settings
+augroup rust_ctags
+  autocmd!
+  autocmd BufRead *.rs :setlocal tags=./TAGS;/,$RUST_SRC_PATH/TAGS
+  autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+augroup END
+
+augroup rust_make
+  autocmd!
+  autocmd BufRead *.rs :setlocal makeprg=cargo\ check
+
+  " Automatically open, but do not go to (if there are errors) the quickfix /
+  " location list window, or close it when is has become empty.
+  "
+  " Note: Must allow nesting of autocmds to enable any customizations for quickfix
+  " buffers.
+  " Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+  " (but not if it's already open). However, as part of the autocmd, this doesn't
+  " seem to happen.
+  autocmd QuickFixCmdPost [^l]* nested botright cwindow
+  autocmd QuickFixCmdPost    ]* nested botright lwindow
+augroup END
+nnoremap <leader>j :Make<CR>
 
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
@@ -554,3 +649,12 @@ let g:xcode_runner_command = 'terminal {cmd}'
 call airline#parts#define_function('xcscheme', 'g:xcode#scheme')
 call airline#parts#define_condition('xcscheme', '&filetype =~ "swift"')
 let g:airline_section_y = airline#section#create(['xcscheme'])
+
+"let g:wintabs_display = 'statusline'
+map <A-H> <silent>:WintabsPrevious<CR>
+map <A-L> <silent>:WintabsNext<CR>
+map [b <Plug>(wintabs_previous)
+map ]b <Plug>(wintabs_next)
+map ,c <Plug>(wintabs_close)
+
+let g:wintabs_ui_vimtab_name_format = ' %n: %t '
