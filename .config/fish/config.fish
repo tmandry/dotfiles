@@ -33,3 +33,6 @@ end
 function fish_mode_prompt
   # NOOP - disable default mode indicator before prompt
 end
+
+# Disable greeting
+set fish_greeting
