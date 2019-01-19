@@ -345,7 +345,7 @@ nnoremap <leader>M :MarkClear<CR>
 " CtrlP
 " Disable switching buffers when opening files.
 let g:ctrlp_switch_buffer = '0'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_user_command = ['.git', 'cd %s; and git ls-files -co --exclude-standard']
 
 " After 4s of inactivity, check for external file modifications on next keypress
 au CursorHold * checktime
@@ -451,10 +451,17 @@ end
 match ExtraWhitespace /\s\+$/
 augroup match_extra_whitespace
   autocmd!
-  autocmd BufWinEnter * if &l:buftype != 'terminal' | match ExtraWhitespace /\s\+$/ | endif
-  autocmd InsertEnter * if &l:buftype != 'terminal' | match ExtraWhitespace /\s\+\%#\@<!$/ | endif
-  autocmd InsertLeave * if &l:buftype != 'terminal' | match ExtraWhitespace /\s\+$/ | endif
+  autocmd BufWinEnter * if &buftype != 'terminal' | match ExtraWhitespace /\s\+$/ | endif
+  autocmd InsertEnter * if &buftype != 'terminal' | match ExtraWhitespace /\s\+\%#\@<!$/ | endif
+  autocmd InsertLeave * if &buftype != 'terminal' | match ExtraWhitespace /\s\+$/ | endif
+  " Counteract constant memory alloc by BufWinEnter by clearing matches on
+  " BufWinLeave.
   autocmd BufWinLeave * call clearmatches()
+
+  " Apparently Vim 8.1 doesn't set buftype to terminal on BufWinEnter.
+  if !has('nvim')
+    autocmd TerminalOpen * call clearmatches()
+  endif
 augroup END
 
 " Remove the toolbar if it's macvim or gvim
