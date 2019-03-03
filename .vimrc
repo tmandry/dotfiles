@@ -202,6 +202,10 @@ if has('nvim') || has('terminal')
   tnoremap <C-k> <C-\><C-n><C-w>k
   tnoremap <C-;> <C-\><C-n><C-w>l
   tnoremap <C-'> <C-\><C-n><C-w><C-p>
+
+  if !has('nvim')
+    set termwinkey=<C-q>
+  endif
 endif
 set splitright
 set splitbelow
