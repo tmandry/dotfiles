@@ -6,6 +6,7 @@ abbr be bundle exec
 
 abbr g git
 abbr gcam git commit -am
+abbr gca git commit -a
 abbr gcaa git commit -a --amend
 abbr gcm git commit -m
 abbr gs git status
