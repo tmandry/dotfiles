@@ -204,15 +204,24 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 noremap <C-'> <C-w><C-p>
-if has('nvim') || has('terminal')
+if has('nvim')
   tnoremap <C-h> <C-\><C-n><C-w>h
   tnoremap <C-j> <C-\><C-n><C-w>j
   tnoremap <C-k> <C-\><C-n><C-w>k
   tnoremap <C-;> <C-\><C-n><C-w>l
   tnoremap <C-'> <C-\><C-n><C-w><C-p>
+elseif has('terminal')
+  " TODO: Put <C-q> in a variable somehow
+  tnoremap <C-h> <C-q>h
+  tnoremap <C-j> <C-q>j
+  tnoremap <C-k> <C-q>k
+  tnoremap <C-;> <C-q>l
+  tnoremap <C-'> <C-\><C-n><C-p>
 
-  if !has('nvim')
+  if exists('&termwinkey')
     set termwinkey=<C-q>
+  elseif exists('&termkey')
+    set termkey=<C-q>
   endif
 endif
 set splitright
@@ -233,19 +242,33 @@ augroup terminal
 
     autocmd TermOpen * setlocal statusline=%{b:term_title} nonumber norelativenumber
   elseif has('terminal')
-    autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | call EnterVimTerminal() | endif
+    autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | call VimTerminalEntered() | endif
 
-    autocmd TerminalOpen * setlocal nonumber norelativenumber | call term_setkill('', 'term')
+    if exists('##TerminalOpen')
+      autocmd TerminalOpen * call VimTerminalCrated()
+    else
+      autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | call VimTerminalCreated() | endif
+    endif
 
-    function! EnterVimTerminal()
-      try
-        normal! i
-      catch /E21/ " Cannot make changes, 'modifiable' is off
-        " Still seems to work even when it throws this error.
-      "catch /E490/ " No fold found
-        " I don't know why this error occurs, but we don't want it.
-        " Seems to be fixed in Vim 8.1.
-      endtry
+    " Note: This might be called more than once for a terminal.
+    function! VimTerminalCreated()
+      setlocal nonumber norelativenumber
+      if exists('*term_setkill')
+        call term_setkill('', 'term')
+      endif
+    endfunction
+
+    function! VimTerminalEntered()
+      if v:version >= 810
+        try
+          normal! i
+        catch /E21/ " Cannot make changes, 'modifiable' is off
+          " Still seems to work even when it throws this error.
+        catch /E490/ " No fold found
+          " I don't know why this error occurs, but we don't want it.
+          " Seems to be fixed in Vim 8.1.
+        endtry
+      endif
     endfunction
   endif
 augroup END
@@ -254,7 +277,6 @@ if has('nvim') || has('terminal')
 endif
 
 command! BT call BottomTerminal()
-command! Term term fish
 function! BottomTerminal()
   execute 'bot 40sp'
   execute 'terminal fish'
@@ -471,9 +493,13 @@ augroup match_extra_whitespace
   " BufWinLeave.
   autocmd BufWinLeave * call clearmatches()
 
-  " Apparently Vim 8.1 doesn't set buftype to terminal on BufWinEnter.
-  if !has('nvim')
-    autocmd TerminalOpen * call clearmatches()
+  " Apparently Vim 8.1 doesn't set buftype to terminal on initial BufWinEnter.
+  if !has('nvim') && has('terminal')
+    if exists('##TerminalOpen')
+      autocmd TerminalOpen * call clearmatches()
+    else
+      autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | call clearmatches() | endif
+    endif
   endif
 augroup END
 

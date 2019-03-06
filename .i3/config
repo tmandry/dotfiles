@@ -144,3 +144,6 @@ for_window [class="Gnome-control-center"] floating enable
 # Screen layout shortcuts
 bindsym $mod+Shift+Control+exclam exec ~/.screenlayout/1.sh
 bindsym $mod+Shift+Control+at exec ~/.screenlayout/2-r.sh
+
+# Run autostart entries
+exec dex -ae i3
