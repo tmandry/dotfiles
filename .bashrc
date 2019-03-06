@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# Environment vairables
-export PATH=$HOME/bin:/usr/local/bin:$PATH:/usr/local/mysql/bin
+# Local environment vairables should go in .bashrc_local (see below).
 export EDITOR=vim
-
-ANDROID_ENV="~/code/android/env.sh"
-[ -e "$ANDROID_ENV" ] && source $ANDROID_ENV
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
