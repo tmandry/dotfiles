@@ -60,7 +60,9 @@ set nocompatible
 "filetype on " Prevent an error exit code if filetype is off already
 "filetype off
 
-set shell=/usr/local/bin/fish
+if !empty(glob('~/.vim/config/local.vim'))
+  source ~/.vim/config/local.vim
+endif
 
 " Turn on filetype based plugins
 filetype plugin indent on
