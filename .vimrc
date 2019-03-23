@@ -367,8 +367,6 @@ endif
 
 " Save and exit insert mode using kj
 inoremap kj <Esc>:w<CR>
-" Tell vim-multiple-cursors about this (doesn't seem to work)
-let g:multi_cursor_insert_maps={'k':1}
 
 " These don't have bindings anyways
 command! Wq wq
@@ -459,12 +457,19 @@ if (has("termguicolors"))
 endif
 
 " Set colorscheme
-let g:onedark_background_color = "121212"
 let g:one_allow_italics = 1
 set background=dark
-set guifont=Inconsolate\ Go\ 11
-"colorscheme onedark
+set guifont=Inconsolata\ Go\ 11
 colorscheme one
+
+" Don't let colorscheme clear vim-multiple-cursors highlight groups
+" I wish there was a more elegant way to fix this.
+highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+highlight link mulitple_cursors_visual Visual
+
+" Better esc behavior with multiple-cursors.
+let g:multi_cursor_exit_from_visual_mode = 0
+let g:multi_cursor_exit_from_insert_mode = 0
 
 " Force vim to use 256 colors
 set t_Co=256
