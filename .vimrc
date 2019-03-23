@@ -724,14 +724,16 @@ function! DoRunEscaped(...)
   execute 'terminal' . flags . ' bash -c ' . cmd
 endfunction
 
-"nnoremap <leader>b :Xbuild<CR>G
-nnoremap <silent><leader>B :silent call RunInWindow('build', 'Xbuild')<CR>
-"nnoremap <leader>t :call RunTests()<CR>
-nnoremap <silent><leader>T :silent call RunInWindow('build', 'Xtest')<CR>
-nnoremap <leader>s :Xscheme 
-nnoremap <silent><leader>C :silent call RunInWindow('build', 'Xclean')<CR>
-nnoremap <silent><leader>c :silent call CloseRunWindow('build') \| call CloseRunWindow('run')<CR>
-nnoremap <silent><leader>N :silent call RunInWindow('run', 'MyXrunCmd')<CR>
+augroup xbuild
+  "nnoremap <leader>b :Xbuild<CR>G
+  autocmd!
+  autocmd FileType swift nnoremap <buffer><silent> <leader>B :silent call RunInWindow('build', 'Xbuild')<CR>
+  autocmd FileType swift nnoremap <buffer><silent> <leader>T :silent call RunInWindow('build', 'Xtest')<CR>
+  autocmd FileType swift nnoremap <buffer>         <leader>s :Xscheme 
+  autocmd FileType swift nnoremap <buffer><silent> <leader>C :silent call RunInWindow('build', 'Xclean')<CR>
+  autocmd FileType swift nnoremap <buffer><silent> <leader>c :silent call CloseRunWindow('build') \| call CloseRunWindow('run')<CR>
+  autocmd FileType swift nnoremap <buffer><silent> <leader>N :silent call RunInWindow('run', 'MyXrunCmd')<CR>
+augroup END
 let g:xcode_runner_command = "RunEscaped {cmd}"
 "let g:xcode_runner_command = "terminal ++curwin ! {cmd}"
 "let g:xcode_runner_command = 'terminal bash -c "{cmd}"'
