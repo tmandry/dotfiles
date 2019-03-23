@@ -683,6 +683,17 @@ function! MyXrun()
   execute 'Xrun'
 endfunction
 
+command! -nargs=+ RunEscaped call DoRunEscaped(<f-args>)
+function! DoRunEscaped(...)
+  let cmd = substitute(join(a:000, '\ '), '"', '\\"', 'g')
+  if has('nvim')
+    let l:flags = ''
+  else
+    let l:flags = ' ++curwin'
+  endif
+  execute 'terminal' . flags . ' bash -c ' . cmd
+endfunction
+
 "nnoremap <leader>b :Xbuild<CR>G
 nnoremap <silent><leader>B :silent call RunInWindow('build', 'Xbuild')<CR>
 "nnoremap <leader>t :call RunTests()<CR>
@@ -691,7 +702,10 @@ nnoremap <leader>s :Xscheme
 nnoremap <silent><leader>C :silent call RunInWindow('build', 'Xclean')<CR>
 nnoremap <silent><leader>c :silent call CloseRunWindow('build') \| call CloseRunWindow('run')<CR>
 nnoremap <silent><leader>N :silent call RunInWindow('run', 'MyXrunCmd')<CR>
-let g:xcode_runner_command = 'terminal {cmd}'
+let g:xcode_runner_command = "RunEscaped {cmd}"
+"let g:xcode_runner_command = "terminal ++curwin ! {cmd}"
+"let g:xcode_runner_command = 'terminal bash -c "{cmd}"'
+"let g:xcode_runner_command = 'Start {cmd}'
 
 call airline#parts#define_function('xcscheme', 'g:xcode#scheme')
 call airline#parts#define_condition('xcscheme', '&filetype =~ "swift"')
