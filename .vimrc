@@ -227,6 +227,7 @@ endif
 set splitright
 set splitbelow
 set noequalalways
+set fillchars+=vert:│
 
 " Terminal
 augroup terminal
