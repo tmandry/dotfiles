@@ -249,7 +249,7 @@ augroup terminal
     autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | call VimTerminalEntered() | endif
 
     if exists('##TerminalOpen')
-      autocmd TerminalOpen * call VimTerminalCrated()
+      autocmd TerminalOpen * call VimTerminalCreated()
     else
       autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | call VimTerminalCreated() | endif
     endif
