@@ -60,6 +60,9 @@ set nocompatible
 "filetype on " Prevent an error exit code if filetype is off already
 "filetype off
 
+" Define global vars used below
+let g:session_persist_globals = []
+
 if !empty(glob('~/.vim/config/local.vim'))
   source ~/.vim/config/local.vim
 endif
@@ -376,7 +379,6 @@ nnoremap S :w<cr>
 
 " Make it easier to go to the last buffer
 nnoremap <leader>b :b#<CR>
-nnoremap <leader>M :MarkClear<CR>
 
 " CtrlP
 " Disable switching buffers when opening files.
@@ -523,8 +525,35 @@ augroup file_types
   au Filetype tex let dialect='US'
 augroup END
 
-" Mark settings
+" Mark.vim settings
 let g:mwDefaultHighlightingPalette = 'extended'
+nmap <leader>N <Plug>MarkToggle
+nmap <leader>M <Plug>MarkConfirmAllClear
+nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
+nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
+nmap [m <Plug>MarkSearchCurrentPrev
+nmap ]m <Plug>MarkSearchCurrentNext
+nmap ]M <Plug>MarkSearchUsedGroupNext
+nmap [M <Plug>MarkSearchUsedGroupPrev
+nmap <leader>1 <Plug>MarkSearchGroup1Next
+nmap <leader>2 <Plug>MarkSearchGroup2Next
+nmap <leader>3 <Plug>MarkSearchGroup3Next
+nmap <leader>4 <Plug>MarkSearchGroup4Next
+nmap <leader>5 <Plug>MarkSearchGroup5Next
+nmap <leader>6 <Plug>MarkSearchGroup6Next
+nmap <leader>7 <Plug>MarkSearchGroup7Next
+nmap <leader>8 <Plug>MarkSearchGroup8Next
+nmap <leader>9 <Plug>MarkSearchGroup9Next
+nmap <leader>! <Plug>MarkSearchGroup1Prev
+nmap <leader>@ <Plug>MarkSearchGroup2Next
+nmap <leader># <Plug>MarkSearchGroup3Next
+nmap <leader>$ <Plug>MarkSearchGroup4Next
+nmap <leader>% <Plug>MarkSearchGroup5Next
+nmap <leader>^ <Plug>MarkSearchGroup6Next
+nmap <leader>& <Plug>MarkSearchGroup7Next
+nmap <leader>* <Plug>MarkSearchGroup8Next
+nmap <leader>( <Plug>MarkSearchGroup9Next
+let g:session_persist_globals += ['g:MARK_MARKS']
 
 " Racer settings
 set hidden
@@ -603,6 +632,7 @@ endfunction
 let g:session_autosave='yes'
 let g:session_autoload='no'
 let g:session_periodic_autosave=2
+command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names OpenSess call xolox#session#open_cmd(<q-args>, <q-bang>, 'OpenSession') | silent MarkLoad
 
 " Syntastic settings
 "set statusline=%f\ %h%w%m%r\ 
