@@ -457,12 +457,13 @@ if (has("termguicolors"))
 endif
 
 " Set colorscheme
-let g:one_allow_italics = 1
+"let g:one_allow_italics = 1
 set background=dark
 set guifont=Inconsolata\ Go\ 11
 colorscheme one
 
-" Don't let colorscheme clear vim-multiple-cursors highlight groups
+" Don't let colorscheme clear vim-multiple-cursors highlight groups when
+" re-sourcing vimrc
 " I wish there was a more elegant way to fix this.
 highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
 highlight link mulitple_cursors_visual Visual
