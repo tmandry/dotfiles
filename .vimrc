@@ -79,6 +79,10 @@ set ttyfast
 
 set history=1000
 
+" Prevent unwanted characters being inserted when a key is pressed quickly
+" after pressing Esc.
+set ttimeoutlen=0
+
 " Persistent undos
 set undolevels=10000
 if v:version >= 730
