@@ -745,19 +745,49 @@ augroup xbuild
   autocmd FileType swift nnoremap <buffer><silent> <leader>N :silent call RunInWindow('run', 'MyXrunCmd')<CR>
 augroup END
 let g:xcode_runner_command = "RunEscaped {cmd}"
-"let g:xcode_runner_command = "terminal ++curwin ! {cmd}"
-"let g:xcode_runner_command = 'terminal bash -c "{cmd}"'
-"let g:xcode_runner_command = 'Start {cmd}'
 
-call airline#parts#define_function('xcscheme', 'g:xcode#scheme')
-call airline#parts#define_condition('xcscheme', '&filetype =~ "swift"')
-let g:airline_section_y = airline#section#create(['xcscheme'])
+""" Airline
 
-"let g:wintabs_display = 'statusline'
+let g:airline_powerline_fonts = 1
+" Clean up the position information (removed total # lines; use %L to get back)
+let g:airline_section_z = "%#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#:%-3v (%3p%%)"
+let g:airline_skip_empty_sections = 1
+
+function! AirlineTabsBuilder(...)
+  let builder = a:1
+
+  " Call the core builder functions first, then apply our change.
+  " This may break in the future.
+  " Function names taken from https://bit.ly/2U0poe4
+  if 0 == call(function('airline#extensions#apply'), a:000)
+    call call(function('airline#extensions#default#apply'), a:000)
+  endif
+
+  call builder.add_section('Tabs', wintabs#ui#get_vimtabs_fragment())
+
+  return 1
+endfunction
+
+function! AirlineInit()
+  call airline#parts#define_function('xcscheme', 'g:xcode#scheme')
+  call airline#parts#define_condition('xcscheme', '&filetype =~ "swift"')
+  let g:airline_section_y = airline#section#create(['xcscheme'])
+
+  call airline#add_statusline_func('AirlineTabsBuilder')
+endfunction
+augroup airline_init
+  autocmd!
+  autocmd VimEnter * call AirlineInit()
+augroup END
+
+""" Wintabs
+
+let g:wintabs_display = 'statusline'
+let g:airline_statusline_ontop = 1
 map <A-H> <silent>:WintabsPrevious<CR>
 map <A-L> <silent>:WintabsNext<CR>
 map [b <Plug>(wintabs_previous)
 map ]b <Plug>(wintabs_next)
 map ,c <Plug>(wintabs_close)
 
-let g:wintabs_ui_vimtab_name_format = ' %n: %t '
+let g:wintabs_ui_vimtab_name_format = '%n %t'
