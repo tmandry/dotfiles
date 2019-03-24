@@ -50,7 +50,6 @@ if !has('nvim')
 endif
 
 Plug 'zefei/vim-wintabs'
-Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
 
 call plug#end()
@@ -482,6 +481,7 @@ set t_Co=256
 " Move around tabs and buffers
 nnoremap ]t gt
 nnoremap [t gT
+let g:nremap = {'[t': '', ']t': ''} " tell vim-unimpaired not to remap us
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
 
