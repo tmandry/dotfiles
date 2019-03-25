@@ -46,6 +46,7 @@ Plug 'xolox/vim-session'
 Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'bkad/CamelCaseMotion'
 Plug 'chaoren/vim-wordmotion'
+Plug 'jremmen/vim-ripgrep'
 if !has('nvim')
   Plug 'drmikehenry/vim-fixkey'
 endif
