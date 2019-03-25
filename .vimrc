@@ -55,6 +55,8 @@ Plug 'zefei/vim-wintabs-powerline'
 
 call plug#end()
 
+let g:plug_window = "new"
+
 " Use VIM settings, rather than Vi settings
 set nocompatible
 "filetype on " Prevent an error exit code if filetype is off already
