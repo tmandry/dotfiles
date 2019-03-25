@@ -109,6 +109,9 @@ set backspace=indent,eol,start
 
 " Enable mouse
 set mouse=a
+if has('mouse_sgr')
+  set ttymouse=sgr
+endif
 
 " Turn on line numbers
 set nu
