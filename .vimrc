@@ -489,9 +489,10 @@ set t_Co=256
 " Move around tabs and buffers
 nnoremap ]t gt
 nnoremap [t gT
-let g:nremap = {'[t': '', ']t': ''} " tell vim-unimpaired not to remap us
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
+" tell vim-unimpaired not to remap us
+let g:nremap = {'[t': '', ']t': '', '[b': '', ']b': ''}
+"nnoremap [b :bprevious<CR>
+"nnoremap ]b :bnext<CR>
 
 " Move around in command line (doesn't work..)
 "cmap <M-b> <S-Left>
