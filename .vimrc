@@ -49,6 +49,8 @@ if !has('nvim')
   Plug 'drmikehenry/vim-fixkey'
 endif
 Plug 'sjl/gundo.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
@@ -814,3 +816,29 @@ let g:wintabs_ui_vimtab_name_format = '%n %t'
 let g:gundo_prefer_python3 = 1
 let g:gundo_right = 1
 nnoremap <F9> :GundoToggle<CR>
+
+""" Goyo
+
+let s:goyo_enabled = 0
+function! GoyoToggle()
+  if s:goyo_enabled
+    if exists('s:saved_wintabs_display')
+      let g:wintabs_display = g:saved_wintabs_display
+      unlet g:saved_wintabs_display
+    endif
+    Goyo!
+    Limelight!
+    WintabsRefresh
+    AirlineRefresh
+  else
+    let g:saved_wintabs_display = g:wintabs_display
+    let g:wintabs_display = 'none'
+    WintabsRefresh
+    Goyo
+    if &filetype == 'markdown'
+      Limelight
+    endif
+  endif
+  let s:goyo_enabled = !s:goyo_enabled
+endfunction
+nnoremap <F6> :call GoyoToggle()<CR>
