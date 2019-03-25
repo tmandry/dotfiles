@@ -806,9 +806,34 @@ map [b <Plug>(wintabs_previous)
 map ]b <Plug>(wintabs_next)
 map ,c <Plug>(wintabs_close)
 
-" In buffer line show tail dir/filename
-let g:wintabs_ui_buffer_name_format = "%{expand('%:p:h:t')}/%t"
 let g:wintabs_ui_vimtab_name_format = '%n %t'
+
+" In buffer line show tail dir/filename
+function! s:custom_buf_label(bufnr, config)
+  let path = bufname(a:bufnr)
+  let name = fnamemodify(path, ':p:h:t')
+  if !empty(name)
+    let name = name . '/'
+  endif
+  let name = name . fnamemodify(path, ':t')
+  return name
+endfunction
+function! s:wintabs_custom_buffer(bufnr, config)
+  " Copied from wintabs-powerline source since we can't just override buf_label.
+  let label = s:custom_buf_label(a:bufnr, a:config)
+  let highlight = a:config.is_active ? 'WintabsActive' : 'WintabsInactive'
+  let highlight = s:maybe_nc(highlight, a:config)
+  return { 'label': label, 'highlight': highlight }
+endfunction
+function! s:maybe_nc(higroup, config)
+  let is_nc = has_key(a:config, 'is_active_window') && !a:config.is_active_window
+  let higroup = is_nc ? a:higroup.'NC' : a:higroup
+  return higroup
+endfunction
+augroup wintabs_init
+  autocmd!
+  autocmd VimEnter * let g:wintabs_renderers.buffer = function('s:wintabs_custom_buffer')
+augroup END
 
 """ Gundo
 
