@@ -753,6 +753,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_z = "%#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#:%-3v (%3p%%)"
 let g:airline_skip_empty_sections = 1
 
+" Builds an airline statusline with vimtabs fragment at the end.
 function! AirlineTabsBuilder(...)
   let builder = a:1
 
@@ -771,6 +772,7 @@ endfunction
 function! AirlineInit()
   call airline#parts#define_function('xcscheme', 'g:xcode#scheme')
   call airline#parts#define_condition('xcscheme', '&filetype =~ "swift"')
+  " Remove fileencoding, fileformat and replace with xcscheme.
   let g:airline_section_y = airline#section#create(['xcscheme'])
 
   call airline#add_statusline_func('AirlineTabsBuilder')
@@ -778,6 +780,11 @@ endfunction
 augroup airline_init
   autocmd!
   autocmd VimEnter * call AirlineInit()
+augroup END
+
+augroup airline_events
+  autocmd!
+  autocmd FileType vim let b:airline_whitespace_checks = ['indent', 'mixed-indent-file']
 augroup END
 
 """ Wintabs
@@ -790,4 +797,6 @@ map [b <Plug>(wintabs_previous)
 map ]b <Plug>(wintabs_next)
 map ,c <Plug>(wintabs_close)
 
+" In buffer line show tail dir/filename
+let g:wintabs_ui_buffer_name_format = "%{expand('%:p:h:t')}/%t"
 let g:wintabs_ui_vimtab_name_format = '%n %t'
