@@ -586,8 +586,8 @@ let g:session_persist_globals += ['g:MARK_MARKS']
 
 " Racer settings
 set hidden
-let g:racer_cmd="/Users/tyler/.cargo/bin/racer"
-let $RUST_SRC_PATH="/Users/tyler/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"
+let g:racer_cmd=$HOME."/.cargo/bin/racer"
+let $RUST_SRC_PATH=systemlist("rustc --print sysroot")[0]."/lib/rustlib/src/rust/src"
 let g:racer_experimental_completer=1
 
 " rust.vim settings
@@ -619,7 +619,7 @@ nmap <buffer> gb <plug>DeopleteRustGoToDefinitionTab
 augroup rust_ctags
   autocmd!
   autocmd BufRead *.rs :setlocal tags=./TAGS;/,$RUST_SRC_PATH/TAGS
-  autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+  autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet 2>/dev/null &" | redraw!
 augroup END
 
 augroup rust_make
