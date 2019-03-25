@@ -466,6 +466,11 @@ endif
 "let g:one_allow_italics = 1
 set background=dark
 set guifont=Inconsolata\ Go\ 11
+augroup override_colors
+  autocmd!
+  " Hide all the ~ characters past end of file.
+  autocmd ColorScheme * highlight EndOfBuffer ctermfg=bg guifg=bg
+augroup END
 colorscheme one
 
 " Don't let colorscheme clear vim-multiple-cursors highlight groups when
