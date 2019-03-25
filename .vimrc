@@ -48,6 +48,7 @@ Plug 'bkad/CamelCaseMotion'
 if !has('nvim')
   Plug 'drmikehenry/vim-fixkey'
 endif
+Plug 'sjl/gundo.vim'
 
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
@@ -800,3 +801,9 @@ map ,c <Plug>(wintabs_close)
 " In buffer line show tail dir/filename
 let g:wintabs_ui_buffer_name_format = "%{expand('%:p:h:t')}/%t"
 let g:wintabs_ui_vimtab_name_format = '%n %t'
+
+""" Gundo
+
+let g:gundo_prefer_python3 = 1
+let g:gundo_right = 1
+nnoremap <F9> :GundoToggle<CR>
