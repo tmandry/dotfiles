@@ -214,6 +214,7 @@ vnoremap < <gv
 map <F2> :NERDTreeTabsToggle<CR>
 map <F3> :NERDTreeToggle<CR>
 map <F8> :TagbarToggle<CR>
+nmap <leader>f :NERDTreeFind<CR>
 "map <C-c> <Leader>ci
 
 " Work better with splits
