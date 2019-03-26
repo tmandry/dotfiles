@@ -857,6 +857,16 @@ map <A-L> <silent>:WintabsNext<CR>
 map [b <Plug>(wintabs_previous)
 map ]b <Plug>(wintabs_next)
 map ,c <Plug>(wintabs_close)
+map <silent> gb :<C-U>call WintabGoBuf(v:count)<CR>
+map gB [b
+
+function! WintabGoBuf(count)
+  if a:count == 0
+    WintabsNext
+  else
+    exec 'WintabsGo ' . a:count
+  endif
+endfunction
 
 let g:wintabs_ui_vimtab_name_format = '%n %t'
 
@@ -869,8 +879,9 @@ function! s:custom_buf_label(bufnr, config)
   endif
   let name = name . fnamemodify(path, ':t')
   if getbufvar(a:bufnr, '&modified')
-    let name = name . ' [+]'
+    let name = name . '[+]'
   endif
+  let name = ' ' . a:config.ordinal . ' ' . name . ' '
   return name
 endfunction
 function! s:wintabs_custom_buffer(bufnr, config)
