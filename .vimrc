@@ -868,6 +868,9 @@ function! s:custom_buf_label(bufnr, config)
     let name = name . '/'
   endif
   let name = name . fnamemodify(path, ':t')
+  if getbufvar(a:bufnr, '&modified')
+    let name = name . ' [+]'
+  endif
   return name
 endfunction
 function! s:wintabs_custom_buffer(bufnr, config)
