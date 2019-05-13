@@ -239,6 +239,8 @@ elseif has('terminal')
   tnoremap <C-;> <C-q>l
   tnoremap <C-'> <C-\><C-n><C-p>
 
+  tnoremap <C-q>p <C-q>""
+
   if exists('&termwinkey')
     set termwinkey=<C-q>
   elseif exists('&termkey')
