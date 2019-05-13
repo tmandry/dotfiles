@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'godlygeek/tabular'
 Plug 'keith/swift.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -51,6 +51,8 @@ if !has('nvim')
   Plug 'drmikehenry/vim-fixkey'
 endif
 Plug 'sjl/gundo.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
@@ -405,6 +407,10 @@ nnoremap <leader>b :b#<CR>
 " Disable switching buffers when opening files.
 let g:ctrlp_switch_buffer = '0'
 let g:ctrlp_user_command = ['.git', 'cd %s; and git ls-files -co --exclude-standard']
+
+nnoremap <C-p> :GFiles --cached --others --exclude-standard<CR>
+nnoremap <C-f> :BTags<CR>
+nnoremap <C-g> :Tags<CR>
 
 " After 4s of inactivity, check for external file modifications on next keypress
 au CursorHold * checktime
