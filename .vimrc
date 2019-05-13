@@ -184,8 +184,8 @@ noremap L g_
 "xmap <silent> ie <Plug>CamelCaseMotion_ie
 
 " Make cw and dw act like vanilla vim
-map dw de
-map cw ce
+nmap dw de
+nmap cw ce
 
 map <silent> <leader>w <S-Right>
 map <silent> <leader>b <S-Left>
