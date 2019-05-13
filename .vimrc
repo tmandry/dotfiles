@@ -496,13 +496,14 @@ augroup override_colors
   " Hide all the ~ characters past end of file.
   autocmd ColorScheme * highlight EndOfBuffer ctermfg=bg guifg=bg
 augroup END
-colorscheme one
 
-" Don't let colorscheme clear vim-multiple-cursors highlight groups when
-" re-sourcing vimrc
-" I wish there was a more elegant way to fix this.
-highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
-highlight link mulitple_cursors_visual Visual
+" Apply colorscheme only if it hasn't been applied already, to prevent it from
+" overriding plugin highlight groups. unlet g:colorscheme_applied to change
+" the colorscheme.
+if !exists('g:colorscheme_applied')
+  let g:colorscheme_applied = 1
+  colorscheme one
+endif
 
 " Better esc behavior with multiple-cursors.
 let g:multi_cursor_exit_from_visual_mode = 0
