@@ -1,12 +1,15 @@
 #!/bin/bash
 set -e
 
-# Requires GNU utils. Set these to the paths you need.
-# Install with: brew install coreutils findutils
-#CP=gcp
-#FIND=gfind
-CP=cp
-FIND=find
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Requires GNU utils.
+    # Install with: brew install coreutils findutils
+    CP=gcp
+    FIND=gfind
+else
+    CP=cp
+    FIND=find
+fi
 
 cd $HOME
 echo "Backing up existing files to dotfiles-backup.."
