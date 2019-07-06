@@ -594,7 +594,9 @@ let g:session_persist_globals += ['g:MARK_MARKS']
 " Racer settings
 set hidden
 let g:racer_cmd=$HOME."/.cargo/bin/racer"
-let $RUST_SRC_PATH=systemlist("rustc --print sysroot")[0]."/lib/rustlib/src/rust/src"
+if executable("rustc")
+  let $RUST_SRC_PATH=systemlist("rustc --print sysroot")[0]."/lib/rustlib/src/rust/src"
+endif
 let g:racer_experimental_completer=1
 
 " rust.vim settings
