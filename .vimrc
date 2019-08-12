@@ -53,6 +53,7 @@ endif
 Plug 'sjl/gundo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'cormacrelf/vim-colors-github'
 
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
@@ -195,14 +196,15 @@ xmap <silent> <leader>w <S-Right>
 xmap <silent> <leader>b <S-Left>
 
 " Alt-i/o inserts blank line below/above.
-nnoremap <silent><A-i> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><A-o> :set paste<CR>m`O<Esc>``:set nopaste<CR>
-"nnoremap <silent><A-e> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-"nnoremap <silent><A-q> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+noremap <silent><A-i> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+noremap <silent><A-o> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent><A-e> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent><A-q> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 
 " Set space to toggle folds
-nnoremap <Space> za
-vnoremap <Space> za
+nnoremap <leader><Tab> :set foldmethod=syntax<CR>
+nnoremap <Tab> za
+vnoremap <Tab> za
 
 " Have searches center the line the word is found on
 map N Nzz
@@ -490,7 +492,7 @@ endif
 " Set colorscheme
 "let g:one_allow_italics = 1
 set background=dark
-set guifont=Inconsolata\ Go\ 11
+set guifont=Inconsolata-g\ for\ Powerline\ Bold\ 8
 augroup override_colors
   autocmd!
   " Hide all the ~ characters past end of file.
@@ -511,6 +513,12 @@ let g:multi_cursor_exit_from_insert_mode = 0
 
 " Force vim to use 256 colors
 set t_Co=256
+
+augroup highlight_current_line
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * set cul
+  autocmd WinLeave * set nocul
+augroup END
 
 " Move around tabs and buffers
 nnoremap ]t gt
@@ -554,6 +562,9 @@ augroup END
 " Remove the toolbar if it's macvim or gvim
 if has("gui_running")
   set guioptions-=T
+  set guioptions-=m
+  set guioptions-=r
+  set guioptions-=L
 endif
 
 augroup file_types
