@@ -620,7 +620,12 @@ endif
 let g:racer_experimental_completer=1
 
 " rust.vim settings
-let g:rustfmt_autosave = 1
+"let g:rustfmt_autosave = 1
+
+augroup rust_misc
+  autocmd!
+  autocmd BufNewFile,BufRead *.mir set filetype=rust
+augroup END
 
 " Different textwidth for Rust comments vs code
 " (can be done for all languages.. change rustComment -> Comment)
@@ -629,6 +634,7 @@ augroup rust_textwidth
   autocmd!
   autocmd User SyntaxRustCommentEnterA setlocal tw=80
   autocmd User SyntaxRustCommentLeaveA setlocal tw=100
+  autocmd FileType rust setlocal colorcolumn=81,101 comments^=:///
 augroup END
 
 "let g:ale_linters = {'rust': ['rls']}
@@ -683,12 +689,12 @@ let g:tagbar_type_rust = {
 augroup rust_ctags
   autocmd!
   autocmd BufRead *.rs :setlocal tags=./TAGS;/,$RUST_SRC_PATH/TAGS
-  autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet 2>/dev/null &" | redraw!
+  autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet 2>/dev/null &"
 augroup END
 
 augroup rust_make
   autocmd!
-  autocmd BufRead *.rs :setlocal makeprg=cargo\ check
+  "autocmd BufRead *.rs :setlocal makeprg=cargo\ check
 
   " Automatically open, but do not go to (if there are errors) the quickfix /
   " location list window, or close it when is has become empty.
