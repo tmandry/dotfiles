@@ -24,13 +24,13 @@ Plug 'scrooloose/nerdtree'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'roxma/nvim-yarp'
+  "Plug 'Shougo/deoplete.nvim'
+  "Plug 'roxma/vim-hug-neovim-rpc'
+  "Plug 'roxma/nvim-yarp'
 endif
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-Plug 'sebastianmarkow/deoplete-rust'
-Plug 'zchee/deoplete-jedi'
+"Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+"Plug 'sebastianmarkow/deoplete-rust'
+"Plug 'zchee/deoplete-jedi'
 "Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
