@@ -204,8 +204,8 @@ nnoremap <silent><A-q> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 
 " Set space to toggle folds
 nnoremap <leader><Tab> :set foldmethod=syntax<CR>
-nnoremap <Tab> za
-vnoremap <Tab> za
+nnoremap <Space> za
+vnoremap <Space> za
 
 " Have searches center the line the word is found on
 map N Nzz
@@ -413,9 +413,17 @@ nnoremap <leader>b :b#<CR>
 let g:ctrlp_switch_buffer = '0'
 let g:ctrlp_user_command = ['.git', 'cd %s; and git ls-files -co --exclude-standard']
 
-nnoremap <C-p> :GFiles --cached --others --exclude-standard<CR>
-nnoremap <C-f> :BTags<CR>
-nnoremap <C-g> :Tags<CR>
+" FZF: Don't open files in NERDTree buffer.
+function! FZFOpen(command_str)
+  if (expand('%') =~# 'NERD_tree' && winnr('$') > 1)
+    exe "normal! \<c-w>\<c-w>"
+  endif
+  exe 'normal! ' . a:command_str . "\<cr>"
+endfunction
+
+nnoremap <silent> <C-p> :call FZFOpen(':GFiles --cached --others --exclude-standard')<CR>
+nnoremap <silent> <C-f> :call FZFOpen(':BTags')<CR>
+nnoremap <silent> <C-g> :call FZFOpen(':Tags')<CR>
 
 " After 4s of inactivity, check for external file modifications on next keypress
 au CursorHold * checktime
@@ -432,7 +440,7 @@ au CursorHold * checktime
 "endif
 
 " Treat tmux like normal xterm
-if &term == "screen-256color"
+if &term == "screen-256color" || &term == "tmux-256color"
   set term=xterm-256color
 end
 
