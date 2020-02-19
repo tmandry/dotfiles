@@ -12,6 +12,7 @@ Plug 'keith/swift.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -155,8 +156,8 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 let localmapleader=","
 let mapleader=","
 
-" Move , functionality to ? (which I never use)
-noremap ? ,
+" Move , functionality to ,;
+noremap <leader>; ,
 
 " Replace all occurrences of a word
 nnoremap <leader>e :%s/\<<C-r><C-w>\>//g<Left><Left>
