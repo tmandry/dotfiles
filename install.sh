@@ -3,9 +3,13 @@ set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Requires GNU utils.
-    # Install with: brew install coreutils findutils
     CP=gcp
     FIND=gfind
+    if [[ ! -x $(command -v $CP) || ! -x $(command -v $FIND) ]]; then
+      echo "Requires $CP and $FIND."
+      echo "Please install with: brew install coreutils findutils"
+      exit 1
+    fi
 else
     CP=cp
     FIND=find
@@ -34,3 +38,8 @@ echo "done."
 echo
 echo "For fish colors, open fish and type:"
 echo ". ~/.config/fish/set_colors.fish"
+
+if [ ! -d ~/.zsh/zsh-snap ]; then
+  mkdir -p ~/.zsh
+  git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.zsh/zsh-snap
+fi
