@@ -740,7 +740,7 @@ function! Multiple_cursors_after()
 endfunction
 
 " vim-session settings
-let g:session_autosave='yes'
+"let g:session_autosave='yes'
 let g:session_autoload='no'
 let g:session_periodic_autosave=2
 command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names OpenSess call xolox#session#open_cmd(<q-args>, <q-bang>, 'OpenSession') | silent MarkLoad
