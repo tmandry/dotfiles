@@ -20,3 +20,5 @@ alias gcam='git commit -am'
 alias gcm='git commit -m'
 alias gcaa='git commit -a --amend'
 alias gca='git commit -a'
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$(gem environment gemdir)/bin:$PATH"

@@ -479,9 +479,9 @@ if exists(":Tabularize")
   vmap <leader>aP :Tabularize /\w*:<CR>
 endif
 
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set smarttab expandtab
 
 " Have it keep changes to open buffers without saving to the files
@@ -740,13 +740,13 @@ function! Multiple_cursors_after()
 endfunction
 
 " vim-session settings
-"let g:session_autosave='yes'
+let g:session_autosave='no'
 let g:session_autoload='no'
 let g:session_periodic_autosave=2
 command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names OpenSess call xolox#session#open_cmd(<q-args>, <q-bang>, 'OpenSession') | silent MarkLoad
 
 " Syntastic settings
-"set statusline=%f\ %h%w%m%r\ 
+"set statusline=%f\ %h%w%m%r\
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
@@ -840,7 +840,7 @@ augroup xbuild
   autocmd!
   autocmd FileType swift nnoremap <buffer><silent> <leader>B :silent call RunInWindow('build', 'Xbuild')<CR>
   autocmd FileType swift nnoremap <buffer><silent> <leader>T :silent call RunInWindow('build', 'Xtest')<CR>
-  autocmd FileType swift nnoremap <buffer>         <leader>s :Xscheme 
+  autocmd FileType swift nnoremap <buffer>         <leader>s :Xscheme
   autocmd FileType swift nnoremap <buffer><silent> <leader>C :silent call RunInWindow('build', 'Xclean')<CR>
   autocmd FileType swift nnoremap <buffer><silent> <leader>c :silent call CloseRunWindow('build') \| call CloseRunWindow('run')<CR>
   autocmd FileType swift nnoremap <buffer><silent> <leader>N :silent call RunInWindow('run', 'MyXrunCmd')<CR>
