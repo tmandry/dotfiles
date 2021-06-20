@@ -1,0 +1,210 @@
+" Use VIM settings, rather than Vi settings
+set nocompatible
+"filetype on " Prevent an error exit code if filetype is off already
+"filetype off
+
+" Define global vars used below
+let g:session_persist_globals = []
+
+" Turn on filetype based plugins
+filetype plugin indent on
+
+" Always show the status line
+set laststatus=2
+
+set encoding=utf-8
+
+set ttyfast
+
+set history=1000
+
+" Prevent unwanted characters being inserted when a key is pressed quickly
+" after pressing Esc.
+set ttimeoutlen=0
+
+" Persistent undos
+set undolevels=10000
+if v:version >= 730
+  set undofile
+  set undoreload=10000
+endif
+
+" Keep at least 5 lines around whever I'm scrolling
+set scrolloff=5
+set sidescrolloff=5
+
+" Make backspace work on everything, everywhere
+set backspace=indent,eol,start
+
+"Enable syntax highlighting
+syntax on
+
+" Auotmatically indent based on file type
+set autoindent
+
+" Case insensitive search (smartcase)
+set ignorecase smartcase
+
+" Highlight search
+set hls
+
+" Wrap text instead of being on one line
+set lbr
+
+" Turn the ruler on
+set ruler
+
+" Incremental search
+set incsearch
+
+" show commands as you're typing them
+set showcmd
+
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" Fix the leader to be something a little nicer
+let localmapleader=","
+let mapleader=","
+
+" Move , functionality to ,;
+noremap <leader>; ,
+
+" Replace all occurrences of a word
+nnoremap <leader>e :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <leader>R :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
+vnoremap <leader>R "hy:%s/<C-r>h/<C-r>h/gc<Left><Left><Left>
+
+" Make it easier to clear search results
+noremap <leader><space> :noh<cr>
+
+" Make it easier to move around
+noremap H ^
+noremap L g_
+
+" Make cw and dw act like vanilla vim
+nmap dw de
+nmap cw ce
+
+map <silent> <leader>w <S-Right>
+map <silent> <leader>b <S-Left>
+omap <silent> <leader>w <S-Right>
+omap <silent> <leader>b <S-Left>
+xmap <silent> <leader>w <S-Right>
+xmap <silent> <leader>b <S-Left>
+
+" Alt-i/o inserts blank line below/above.
+noremap <silent><A-i> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+noremap <silent><A-o> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent><A-e> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <silent><A-q> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+
+" Set space to toggle folds
+nnoremap <leader><Tab> :set foldmethod=syntax<CR>
+nnoremap <Space> za
+vnoremap <Space> za
+
+" Have searches center the line the word is found on
+map N Nzz
+map n nzz
+
+" Make block stay highlighted when changing indentation
+vnoremap > >gv
+vnoremap < <gv
+
+" Bind NERDTree commands
+map <F2> :NERDTreeTabsToggle<CR>
+map <F3> :NERDTreeToggle<CR>
+map <F8> :TagbarToggle<CR>
+nmap <leader>f :NERDTreeFind<CR>
+"map <C-c> <Leader>ci
+
+" Work better with splits
+"Removed in favor of vim-tmux-navigator
+"noremap <C-j> <C-w>j
+"noremap <C-k> <C-w>k
+"noremap <C-l> <C-w>l
+"noremap <C-h> <C-w>h
+noremap <C-'> <C-w><C-p>
+if has('nvim')
+  tnoremap <C-h> <C-\><C-n><C-w>h
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  tnoremap <C-;> <C-\><C-n><C-w>l
+  tnoremap <C-'> <C-\><C-n><C-w><C-p>
+elseif has('terminal')
+  " TODO: Put <C-q> in a variable somehow
+  tnoremap <C-h> <C-q>h
+  tnoremap <C-j> <C-q>j
+  tnoremap <C-k> <C-q>k
+  tnoremap <C-;> <C-q>l
+  tnoremap <C-'> <C-\><C-n><C-p>
+
+  tnoremap <C-q>p <C-q>""
+
+  if exists('&termwinkey')
+    set termwinkey=<C-q>
+  elseif exists('&termkey')
+    set termkey=<C-q>
+  endif
+endif
+set splitright
+set splitbelow
+set noequalalways
+set fillchars+=vert:│
+
+" Resize window splits
+" TODO Fix mousewheel
+nnoremap <Up>    3<C-w>-
+nnoremap <Down>  3<C-w>+
+nnoremap <Left>  3<C-w><
+nnoremap <Right> 3<C-w>>
+
+nnoremap <C-Up>    3<C-w>-
+nnoremap <C-Down>  3<C-w>+
+nnoremap <C-Left>  3<C-w><
+nnoremap <C-Right> 3<C-w>>
+tnoremap <C-Up>    <C-\><C-n>3<C-w>-i
+tnoremap <C-Down>  <C-\><C-n>3<C-w>+i
+tnoremap <C-Left>  <C-\><C-n>3<C-w><i
+tnoremap <C-Right> <C-\><C-n>3<C-w>>i
+
+nnoremap _ :split<cr>
+nnoremap \| :vsplit<cr>
+
+" C-t for new tab
+map <C-t> :tabnew<CR>
+
+" Make j/k work as expected with wrapped lines
+if !exists('g:actualvim')
+  map j gj
+  map k gk
+endif
+
+" Save and exit insert mode using kj
+inoremap kj <Esc>:w<CR>
+
+" These don't have bindings anyways
+command! Wq wq
+command! WQ wq
+command! W w
+command! Q q
+nnoremap S :w<cr>
+
+" Make it easier to go to the last buffer
+nnoremap <leader>b :b#<CR>
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set smarttab expandtab
+
+" Have it keep changes to open buffers without saving to the files
+set hidden
+
+" Ignore silly files
+set wildignore=*.o,*.obj,*.bak,*.exe,*.hi,*.6
+
+" Move around tabs and buffers
+nnoremap ]t gt
+nnoremap [t gT
