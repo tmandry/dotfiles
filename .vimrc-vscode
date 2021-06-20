@@ -82,10 +82,6 @@ noremap <leader><space> :noh<cr>
 noremap H ^
 noremap L g_
 
-" Make cw and dw act like vanilla vim
-nmap dw de
-nmap cw ce
-
 map <silent> <leader>w <S-Right>
 map <silent> <leader>b <S-Left>
 omap <silent> <leader>w <S-Right>
