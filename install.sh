@@ -43,3 +43,5 @@ if [ ! -d ~/.zsh/zsh-snap ]; then
   mkdir -p ~/.zsh
   git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.zsh/zsh-snap
 fi
+
+mkdir -p ~/.vim/{backup,tmp}
