@@ -1,10 +1,19 @@
 source ~/.zsh/zsh-snap/znap.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Emacs keymap (disregard EDITOR)
+bindkey -e
+
+bindkey "^[[3~" delete-char
+
+# Ensure that delete-word stops at /.
+export WORDCHARS=${WORDCHARS/\//}
+
 znap source ohmyzsh/ohmyzsh lib/{git,theme-and-appearance}
 znap prompt ohmyzsh/ohmyzsh robbyrussell
 
 znap source zsh-users/zsh-autosuggestions
+bindkey '^F' autosuggest-accept
 
 # Must go after anything that could modify shell behavior.
 znap source zsh-users/zsh-syntax-highlighting
