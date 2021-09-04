@@ -12,10 +12,11 @@
 	enabled = true
 	autoupdate = true
 [alias]
-	co = checkout
-	rb = rebase
-  branch-name = "!git rev-parse --abbrev-ref HEAD"
-  pb = "!f() { if [ -z \"$1\" ]; then git push -u origin $(git branch-name); else git push -u \"$1\" $(git branch-name); fi }; f"
+    co = checkout
+    rb = rebase
+    addnw=!sh -c 'git diff -U0 -w --no-color "$@" | git apply --cached --ignore-whitespace --unidiff-zero -'
+    branch-name = "!git rev-parse --abbrev-ref HEAD"
+    pb = "!f() { if [ -z \"$1\" ]; then git push -u origin $(git branch-name); else git push -u \"$1\" $(git branch-name); fi }; f"
   copr = "!f() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1 }"
 [rebase]
 	stat = true
