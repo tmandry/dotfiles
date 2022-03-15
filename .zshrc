@@ -35,3 +35,5 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$(gem environment gemdir)/bin:$PATH"
 
 which vimpager &>/dev/null && export PAGER=$(which vimpager)
+
+[ -f ~/.zshrc-local ] && source ~/.zshrc-local
