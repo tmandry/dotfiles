@@ -15,6 +15,8 @@ znap prompt ohmyzsh/ohmyzsh robbyrussell
 znap source zsh-users/zsh-autosuggestions
 bindkey '^F' autosuggest-accept
 
+znap source popstas/zsh-command-time
+
 # Must go after anything that could modify shell behavior.
 znap source zsh-users/zsh-syntax-highlighting
 
