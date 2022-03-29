@@ -22,6 +22,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 znap compdef _rustup  'rustup completions zsh'
 znap compdef _cargo   'rustup completions zsh cargo'
 
+#alias cat='bat -p'
 alias gs='git status'
 alias gd='git diff'
 alias gl1='git log -1'
@@ -31,9 +32,6 @@ alias gcm='git commit -m'
 alias gcaa='git commit -a --amend'
 alias gca='git commit -a'
 
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="$(gem environment gemdir)/bin:$PATH"
-
-which vimpager &>/dev/null && export PAGER=$(which vimpager)
+#which vimpager &>/dev/null && export PAGER=$(which vimpager)
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
