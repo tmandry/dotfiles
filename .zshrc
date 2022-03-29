@@ -32,6 +32,8 @@ alias gcm='git commit -m'
 alias gcaa='git commit -a --amend'
 alias gca='git commit -a'
 
+alias ll='ls -l'
+
 #which vimpager &>/dev/null && export PAGER=$(which vimpager)
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
