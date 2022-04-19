@@ -1,3 +1,11 @@
+export HISTFILE=~/.zsh_history
+setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
+#setopt appendhistory autocd beep extendedglob nomatch notify
+#history
+HISTSIZE=100000000
+SAVEHIST=100000000
+
 source ~/.zsh/zsh-snap/znap.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -37,5 +45,10 @@ alias gca='git commit -a'
 alias ll='ls -l'
 
 #which vimpager &>/dev/null && export PAGER=$(which vimpager)
+
+command -v fdfind &>/dev/null && alias fd=fdfind
+
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$(gem environment gemdir)/bin:$PATH"
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
