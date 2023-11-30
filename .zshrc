@@ -29,8 +29,8 @@ znap source popstas/zsh-command-time
 znap source zsh-users/zsh-syntax-highlighting
 
 export PATH="$HOME/.cargo/bin:$PATH"
-znap compdef _rustup  'rustup completions zsh'
-znap compdef _cargo   'rustup completions zsh cargo'
+#[ -f ~/.cargo/env ] && znap compdef _rustup  'rustup completions zsh'
+#[ -f ~/.cargo/env ] && znap compdef _cargo   'rustup completions zsh cargo'
 
 #alias cat='bat -p'
 alias gs='git status'
