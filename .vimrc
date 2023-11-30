@@ -56,7 +56,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'cormacrelf/vim-colors-github'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
