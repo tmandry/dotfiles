@@ -18,7 +18,7 @@ bindkey "^[[3~" delete-char
 export WORDCHARS=${WORDCHARS/\//}
 
 znap source ohmyzsh/ohmyzsh lib/{git,theme-and-appearance}
-znap prompt ohmyzsh/ohmyzsh themes/robbyrussell
+znap prompt sindresorhus/pure
 
 znap source zsh-users/zsh-autosuggestions
 bindkey '^F' autosuggest-accept
