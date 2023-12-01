@@ -55,6 +55,7 @@
   services.gnome.core-developer-tools.enable = true;
 
   programs.light.enable = true;
+  programs.zsh.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -86,11 +87,11 @@
     isNormalUser = true;
     initialPassword = "tyler";
     extraGroups = [ "wheel" "video" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
       alacritty
       firefox
       gnome.gnome-terminal
-      zsh
     ];
   };
 
