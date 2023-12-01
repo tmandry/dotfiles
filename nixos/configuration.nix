@@ -57,6 +57,12 @@
   programs.light.enable = true;
   programs.zsh.enable = true;
 
+  programs.git = {
+    enable = true;
+    package = pkgs.git.override { withLibsecret = true; };
+    config.credential.helper = "libsecret";
+  };
+
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.options = "caps:escape";
