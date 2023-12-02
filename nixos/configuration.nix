@@ -54,6 +54,20 @@
   services.xserver.displayManager.gdm.enable = true;
   services.gnome.core-developer-tools.enable = true;
 
+  programs.hyprland.enable = true;
+  programs.waybar = {
+    enable = true;
+    #style
+    #settings = [{
+    #  height = 30;
+    #  modules-left = [ "hyprland/workspaces" ];
+    #}];
+  };
+
+  fonts.packages = with pkgs; [
+    font-awesome
+  ];
+
   programs.light.enable = true;
   programs.zsh.enable = true;
 
@@ -95,8 +109,8 @@
     extraGroups = [ "wheel" "video" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
-      alacritty
       firefox
+      kitty
       gnome.gnome-terminal
     ];
   };
@@ -107,6 +121,11 @@
     git
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+
+    # Graphical
+    dunst
+    pipewire
+    lxqt.lxqt-policykit
   ];
 
   nixpkgs = {
