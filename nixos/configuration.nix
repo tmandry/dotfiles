@@ -55,20 +55,7 @@
   services.gnome.core-developer-tools.enable = true;
 
   programs.hyprland.enable = true;
-  programs.waybar = {
-    enable = true;
-    #style
-    #settings = [{
-    #  height = 30;
-    #  modules-left = [ "hyprland/workspaces" ];
-    #}];
-  };
 
-  fonts.packages = with pkgs; [
-    font-awesome
-  ];
-
-  programs.light.enable = true;
   programs.zsh.enable = true;
 
   programs.git = {
@@ -106,26 +93,17 @@
   users.users.tyler = {
     isNormalUser = true;
     initialPassword = "tyler";
-    extraGroups = [ "wheel" "video" ];
+    extraGroups = [ "wheel" "video" "input" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [
-      firefox
-      kitty
-      gnome.gnome-terminal
-    ];
+    packages = with pkgs; [ ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
-
-    # Graphical
-    dunst
-    pipewire
-    lxqt.lxqt-policykit
   ];
 
   nixpkgs = {
