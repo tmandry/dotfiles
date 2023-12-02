@@ -28,6 +28,8 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+    system = "aarch64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays {inherit inputs;};
@@ -36,9 +38,10 @@
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       asahi = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        # > Our main nixos configuration file <
         modules = [./nixos/configuration.nix];
+
+        # Pass these through to modules
+        specialArgs = {inherit inputs outputs;};
       };
     };
 
@@ -46,10 +49,12 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       "tyler@asahi" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        # > Our main home-manager configuration file <
+        inherit pkgs;
+
         modules = [./home-manager/home.nix];
+
+        # Pass these through to modules
+        extraSpecialArgs = {inherit inputs outputs;};
       };
     };
   };
