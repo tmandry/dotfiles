@@ -6,10 +6,12 @@
   ...
 }: {
   home.packages = with pkgs; [
+    lxqt.lxqt-policykit
+
     dunst
     pipewire
     light
-    lxqt.lxqt-policykit
+    wofi
 
     kitty
     gnome.gnome-terminal
