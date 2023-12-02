@@ -259,6 +259,11 @@ set splitbelow
 set noequalalways
 set fillchars+=vert:│
 
+augroup nix
+    autocmd!
+    autocmd FileType nix set sw=2
+augroup END
+
 " Terminal
 augroup terminal
   autocmd!
