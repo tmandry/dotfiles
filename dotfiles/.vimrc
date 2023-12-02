@@ -104,6 +104,7 @@ endif
 " source dirs.
 set backup
 set backupdir=~/.vim/backup
+set undodir=~/.vim/backup
 set directory=~/.vim/tmp
 
 " Keep at least 5 lines around whever I'm scrolling
