@@ -17,6 +17,13 @@ bindkey "^[[3~" delete-char
 # Ensure that delete-word stops at /.
 export WORDCHARS=${WORDCHARS/\//}
 
+# Alt+Enter to insert a newline.
+bindkey '^[^M' self-insert-unmeta
+
+# Ctrl+P/N to navigate history (useful for multi-line).
+bindkey '^P' up-history
+bindkey '^N' down-history
+
 znap source ohmyzsh/ohmyzsh lib/{git,theme-and-appearance}
 znap prompt sindresorhus/pure
 
@@ -47,5 +54,9 @@ alias ll='ls -l'
 #which vimpager &>/dev/null && export PAGER=$(which vimpager)
 
 command -v fdfind &>/dev/null && alias fd=fdfind
+
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$(gem environment gemdir)/bin:$PATH"
+export PATH=~/bin:"$PATH"
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
