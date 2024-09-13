@@ -1,0 +1,39 @@
+[
+  {
+    "context": "!VimWaiting",
+    "bindings": {
+      // Pane navigation.
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-[": "pane::ActivatePrevItem",
+      "ctrl-]": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      "H": "vim::FirstNonWhitespace",
+      "L": "vim::EndOfLine",
+      "] t": "pane::ActivateNextItem",
+      "[ t": "pane::ActivatePrevItem",
+      "] b": "pane::ActivateNextItem",
+      "[ b": "pane::ActivatePrevItem"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert", // && !menu
+    "bindings": {
+      // "k j": ["vim::SwitchMode", "Normal"]
+      "k j": ["workspace::SendKeystrokes", "cmd-s escape"]
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-k enter": "project_panel::OpenPermanent",
+      "cmd-g": "editor::SelectLargerSyntaxNode"
+    }
+  }
+]
