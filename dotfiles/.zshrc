@@ -60,3 +60,4 @@ export PATH="$(gem environment gemdir)/bin:$PATH"
 export PATH=~/bin:"$PATH"
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
+export PATH="$HOME/.local/bin:$PATH"
