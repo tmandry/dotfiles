@@ -3,11 +3,11 @@
     "context": "!VimWaiting",
     "bindings": {
       // Pane navigation.
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-[": "pane::ActivatePrevItem",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-[": "pane::ActivatePreviousItem",
       "ctrl-]": "pane::ActivateNextItem"
     }
   },
@@ -17,9 +17,9 @@
       "H": "vim::FirstNonWhitespace",
       "L": "vim::EndOfLine",
       "] t": "pane::ActivateNextItem",
-      "[ t": "pane::ActivatePrevItem",
+      "[ t": "pane::ActivatePreviousItem",
       "] b": "pane::ActivateNextItem",
-      "[ b": "pane::ActivatePrevItem"
+      "[ b": "pane::ActivatePreviousItem"
     }
   },
   {
