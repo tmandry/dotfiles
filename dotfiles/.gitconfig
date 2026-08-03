@@ -8,6 +8,7 @@
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore_global
+    #pager = delta --dark
 [rerere]
 	enabled = true
 	autoupdate = true
@@ -20,7 +21,14 @@
   copr = "!f() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1 }"
 [rebase]
 	stat = true
+[interactive]
+    diffFilter = delta --color-only --dark
+[delta]
+    navigate = true
+[merge]
+    conflictstyle = diff3
 [diff]
+    colorMoved = default
 	tool = vimdiff
 [difftool]
   prompt = true

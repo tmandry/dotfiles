@@ -7,70 +7,155 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "assistant": {
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-20240620"
+  "ssh_connections": [
+    {
+      "host": "100.80.48.127",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/Users/tyler/code/accessibility"
+          ]
+        }
+      ]
     },
-    "version": "2"
+    {
+      "host": "air",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/Users/tyler"
+          ]
+        },
+        {
+          "paths": [
+            "/Users/tyler/code/accessibility"
+          ]
+        }
+      ]
+    }
+  ],
+  "git_panel": {
+    "tree_view": false,
+  },
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
+    "github-copilot-cli": {
+      "default_config_options": {
+        "allow_all": "on"
+      },
+      "favorite_config_option_values": {
+        "mode": [
+          "https://agentclientprotocol.com/protocol/session-modes#autopilot",
+          "https://agentclientprotocol.com/protocol/session-modes#plan",
+        ],
+      },
+      "env": {
+        "COPILOT_ALLOW_ALL": "true",
+      },
+      "type": "registry",
+    },
+  },
+  "diff_view_style": "unified",
+  "tab_bar": {
+    "show_tab_bar_buttons": false,
+    "show_nav_history_buttons": false,
+  },
+  "max_tabs": 8,
+  "edit_predictions": {
+    "mode": "subtle",
+  },
+  "show_edit_predictions": true,
+  "agent": {
+    "tool_permissions": {
+      "default": "allow",
+    },
+    "default_model": {
+      "effort": "high",
+      "enable_thinking": true,
+      "provider": "zed.dev",
+      "model": "claude-opus-4-8",
+    },
   },
   "outline_panel": {
-    "dock": "right"
+    "dock": "right",
   },
-  "theme": { "dark": "Ayu Dark", "light": "Atelier Heath Light" },
+  "theme": { "dark": "Ayu Dark", "light": "One Light" },
   "buffer_font_family": "Iosevka",
-  "ui_font_size": 14,
+  "ui_font_size": 12,
   "ui_font_weight": 600,
-  "buffer_font_size": 13,
-  "buffer_font_weight": 550,
+  "buffer_font_size": 11,
+  "buffer_font_weight": 600, // 550
+  "agent_buffer_font_size": 12,
+  "agent_ui_font_size": 14,
   "buffer_font_features": { "ss04": true },
-  "active_pane_magnification": 1.0,
   "project_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "vim_mode": true,
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "wrap_guides": [80, 100],
   "soft_wrap": "editor_width",
-  "seed_search_query_from_cursor": "selection",
+  //"seed_search_query_from_cursor": "selection",
   "double_click_in_multibuffer": "open",
   "terminal": {
     "dock": "bottom",
     "max_scroll_history_lines": 100000,
     "line_height": "standard",
     "font_family": "Iosevka Term",
-    "font_size": 13,
+    "font_size": 12,
     "font_weight": 550,
-    "font_features": { "ss04": true }
+    "font_features": { "ss04": true },
+  },
+  "vim": {
+    "use_system_clipboard": "never",
   },
   "tasks": {
-    "variables": { "RUST_BACKTRACE": "1" }
+    "variables": { "RUST_BACKTRACE": "1" },
   },
-  "language_overrides": {
+  "languages": {
     "Rust": {
       "inlay_hints": {
-        "enabled": true
-      }
-    }
+        // "enabled": true
+      },
+    },
   },
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {
+        "cargo": { "features": "all" },
         "inlayHints": {
           "parameterHints": {
-            "enable": false
+            "enable": false,
           },
           "typeHints": {
-            "enable": true
-          }
-        }
-      }
-    }
+            "enable": true,
+          },
+        },
+      },
+    },
   },
   "git": {
     "inline_blame": {
-      "enabled": true,
-      "delay_ms": 500
-    }
-  }
+      // Disable until https://github.com/zed-industries/zed/issues/24752
+      // is fixed.
+      "enabled": false,
+      "delay_ms": 500,
+    },
+  },
+  "profiles": {
+    "max": {
+      "settings": {
+        "ui_font_size": 14,
+        "buffer_font_size": 13,
+        "minimap": {
+          "display_in": "all_editors",
+          "show": "always",
+        },
+      },
+    },
+  },
 }

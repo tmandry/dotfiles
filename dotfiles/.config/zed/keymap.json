@@ -25,15 +25,20 @@
   {
     "context": "Editor && vim_mode == insert", // && !menu
     "bindings": {
-      // "k j": ["vim::SwitchMode", "Normal"]
-      "k j": ["workspace::SendKeystrokes", "cmd-s escape"]
-    }
+      "k j": ["workspace::SendKeystrokes", "cmd-s escape"],
+    },
   },
+  // {
+  //   "context": "vim_mode == normal && !menu", // && !menu
+  //   "bindings": {
+  //     "*": ["workspace::SendKeystrokes", "v i w cmd-f"]
+  //   }
+  // },
   {
     "context": "Editor",
     "bindings": {
       "cmd-k enter": "project_panel::OpenPermanent",
-      "cmd-g": "editor::SelectLargerSyntaxNode"
-    }
-  }
+      "cmd-g": "editor::SelectLargerSyntaxNode",
+    },
+  },
 ]

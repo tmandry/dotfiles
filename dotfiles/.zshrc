@@ -55,6 +55,8 @@ alias ll='ls -l'
 
 command -v fdfind &>/dev/null && alias fd=fdfind
 
+source ~/.zsh-jjw.zsh
+
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$(gem environment gemdir)/bin:$PATH"
 export PATH=~/bin:"$PATH"
