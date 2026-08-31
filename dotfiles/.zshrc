@@ -63,3 +63,5 @@ export PATH=~/bin:"$PATH"
 
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
 export PATH="$HOME/.local/bin:$PATH"
+
+export EDITOR=vim
