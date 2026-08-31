@@ -38,7 +38,17 @@
     "context": "Editor",
     "bindings": {
       "cmd-k enter": "project_panel::OpenPermanent",
-      "cmd-g": "editor::SelectLargerSyntaxNode",
-    },
+      "cmd-g": "editor::SelectLargerSyntaxNode"
+    }
   },
+  {
+    "bindings": {
+      "cmd-shift-j": "multi_workspace::NextThread"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-shift-k": "multi_workspace::PreviousThread"
+    }
+  }
 ]
