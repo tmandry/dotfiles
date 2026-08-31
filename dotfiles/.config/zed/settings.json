@@ -37,9 +37,16 @@
     }
   ],
   "git_panel": {
+    "dock": "right",
     "tree_view": false,
   },
   "agent_servers": {
+    "antigravity-acp": {
+      "default_config_options": {
+        "mode": "default"
+      },
+      "type": "registry"
+    },
     "codex-acp": {
       "type": "registry"
     },
@@ -59,16 +66,6 @@
       "type": "registry",
     },
   },
-  "diff_view_style": "unified",
-  "tab_bar": {
-    "show_tab_bar_buttons": false,
-    "show_nav_history_buttons": false,
-  },
-  "max_tabs": 8,
-  "edit_predictions": {
-    "mode": "subtle",
-  },
-  "show_edit_predictions": true,
   "agent": {
     "tool_permissions": {
       "default": "allow",
@@ -80,25 +77,72 @@
       "model": "claude-opus-4-8",
     },
   },
+  "diff_view_style": "unified",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
+  "vim": {
+    "use_system_clipboard": "on_yank"
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
   "outline_panel": {
     "dock": "right",
   },
-  "theme": { "dark": "Ayu Dark", "light": "One Light" },
+  "project_panel": {
+    "dock": "right",
+    "auto_reveal_entries": false
+  },
+  "tab_bar": {
+    "show_tab_bar_buttons": false,
+    "show_nav_history_buttons": false,
+  },
+  "max_tabs": 8,
+  "disable_ai": false,
+  // Edit predictions disabled because even in subtle mode the popup obscures
+  // text on the next line (https://github.com/zed-industries/zed/discussions/31540).
+  "show_edit_predictions": false,
+  "edit_predictions": {
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "allow_data_collection": "no"
+  },
+  "theme": {
+    "mode": "dark",
+    "dark": "Ayu Dark",
+    "light": "One Light"
+  },
   "buffer_font_family": "Iosevka",
-  "ui_font_size": 12,
-  "ui_font_weight": 600,
-  "buffer_font_size": 11,
-  "buffer_font_weight": 600, // 550
+  "ui_font_size": 14,
+  // "ui_font_weight": 600,
+  "buffer_font_size": 12.0,
+  "buffer_font_weight": 600.0,
   "agent_buffer_font_size": 12,
   "agent_ui_font_size": 14,
   "buffer_font_features": { "ss04": true },
-  "project_panel": {
-    "dock": "right",
-  },
   "vim_mode": true,
-  "relative_line_numbers": "enabled",
+  "relative_line_numbers": "disabled",
   "wrap_guides": [80, 100],
   "soft_wrap": "editor_width",
+  "scrollbar": {
+    "axes": {
+      "horizontal": false
+    },
+    "show": "never"
+  },
+  "gutter": {
+    "folds": false,
+    "runnables": false,
+    "breakpoints": false,
+    "bookmarks": false,
+    "line_numbers": false,
+  },
   //"seed_search_query_from_cursor": "selection",
   "double_click_in_multibuffer": "open",
   "terminal": {
@@ -106,12 +150,9 @@
     "max_scroll_history_lines": 100000,
     "line_height": "standard",
     "font_family": "Iosevka Term",
-    "font_size": 12,
-    "font_weight": 550,
-    "font_features": { "ss04": true },
-  },
-  "vim": {
-    "use_system_clipboard": "never",
+    "font_size": 13,
+    // "font_weight": 550,
+    "font_features": { "ss04": true }
   },
   "tasks": {
     "variables": { "RUST_BACKTRACE": "1" },
@@ -121,7 +162,8 @@
       "inlay_hints": {
         // "enabled": true
       },
-    },
+      "semantic_tokens": "combined"
+    }
   },
   "lsp": {
     "rust-analyzer": {
