@@ -1,0 +1,270 @@
+{
+  "breadcrumbs.enabled": true,
+  "diffEditor.maxComputationTime": 0,
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "trailing",
+  "editor.wordWrap": "on",
+  "extensions.ignoreRecommendations": true,
+  "files.exclude": {
+    "**/*.un~": true,
+    "TAGS": true
+  },
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.menus": {
+    "editor": {
+      "blame": false,
+      "clipboard": true,
+      "compare": true,
+      "details": false,
+      "history": false,
+      "remote": false
+    },
+    "editorGroup": false,
+    "editorTab": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "explorer": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true
+    },
+    "scmGroup": {
+      "compare": true,
+      "openClose": true,
+      "stash": true,
+      "stashInline": true
+    },
+    "scmItem": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": true,
+      "stash": true
+    }
+  },
+  "python.autoUpdateLanguageServer": true,
+  "python.formatting.provider": "none",
+  "python.jediEnabled": false,
+  "search.smartCase": true,
+  "terminal.integrated.scrollback": 500000,
+  "vim.easymotion": true,
+  "vim.highlightedyank.enable": true,
+  "vim.hlsearch": true,
+  "vim.incsearch": true,
+  "vim.leader": ",",
+  "vim.surround": true,
+  "vim.useCtrlKeys": true,
+  "vim.visualstar": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "k",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ],
+      "commands": [
+        {
+          "command": ":w"
+        }
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "<space>"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": ":noh"
+        }
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "t"
+      ],
+      "after": [
+        "g",
+        "T"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "t"
+      ],
+      "after": [
+        "g",
+        "t"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        " "
+      ],
+      "after": [
+        "m",
+        "o",
+        "o",
+        "<Esc>",
+        "0",
+        "D",
+        "`",
+        "o"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        " "
+      ],
+      "after": [
+        "m",
+        "o",
+        "O",
+        "<Esc>",
+        "0",
+        "D",
+        "`",
+        "o"
+      ]
+    },
+    {
+      "before": [
+        "<C-h>"
+      ],
+      "after": [
+        "<C-w>",
+        "h"
+      ]
+    },
+    {
+      "before": [
+        "<C-l>"
+      ],
+      "after": [
+        "<C-w>",
+        "l"
+      ]
+    }
+  ],
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.editor.openPositioning": "last",
+  "workbench.fontAliasing": "auto",
+  "[markdown]": {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 90,
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
+  },
+  "python.languageServer": "Default",
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "/Applications/iTerm.app",
+  "editor.find.seedSearchStringFromSelection": "never",
+  "explorer.confirmDragAndDrop": false,
+  "files.trimTrailingWhitespace": true,
+  "vim.changeWordIncludesWhitespace": true,
+  "workbench.editor.wrapTabs": true,
+  "[rust]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
+  "diffEditor.renderSideBySide": false,
+  "vim.vimrc.path": "$HOME/.vimrc-vscode",
+  "swiftTest.swift.logpanel": true,
+  "swiftTest.swift.enableDebug": false,
+  "editor.cursorStyle": "line",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f",
+    "terminal.findMatchBorder": "#ff0000",
+    "terminal.findMatchHighlightBorder": "#ffff00"
+  },
+  "vim.replaceWithRegister": true,
+  "vim.vimrc.enable": true,
+  "sde.languageServerMode": "sourcekit-lsp",
+  "auto-comment-blocks.singleLineBlockOnEnter": true,
+  "scm.inputFontFamily": "",
+  "terminal.integrated.fontFamily": "'Iosevka Term', 'Iosevka Term Nerd Font Complete', 'InconsolataGo Nerd Font Complete', Menlo, Monaco, 'Courier New', monospace",
+  "files.insertFinalNewline": true,
+  "editor.renderFinalNewline": "off",
+  "explorer.confirmDelete": false,
+  "sourcekit-lsp.serverPath": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+  "errorLens.enabled": true,
+  "errorLens.enabledDiagnosticLevels": [
+    "error",
+    "info",
+    "warning"
+  ],
+  "terminal.integrated.shellIntegration.enabled": true,
+  "remote.SSH.connectTimeout": 90,
+  "rust-analyzer.callInfo.full": false,
+  "rust-analyzer.inlayHints.chainingHints.enable": true,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.typeHints.enable": false,
+  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
+  "rust-analyzer.checkOnSave": false,
+  "rust-analyzer.completion.postfix.enable": false,
+  "rust-analyzer.showRequestFailedErrorNotification": false,
+  "workbench.sideBar.location": "right",
+  "apple-swift-format.path": "/opt/homebrew/bin/swift-format",
+  "swiftformat.path": "/opt/homebrew/bin/swiftformat",
+  "editor.wordWrapColumn": 100,
+  "window.autoDetectColorScheme": true,
+  "markdown.updateLinksOnFileMove.enabled": "prompt",
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "workspace.dialogs.customEnabled": true,
+  "workbench.preferredLightColorTheme": "Default Light+",
+  "remote.SSH.maxReconnectionAttempts": 8,
+  "terminal.integrated.persistentSessionScrollback": 10000,
+  "git.openRepositoryInParentFolders": "always",
+  "terminal.integrated.showExitAlert": false,
+  "editor.fontFamily": "'Iosevka', 'InconsolataGo Nerd Font Complete', Menlo, Monaco, 'Courier New', monospace",
+  "workbench.editor.revealIfOpen": true,
+  "errorLens.scrollbarHackEnabled": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.tabSizing": "shrink",
+  "window.dialogStyle": "custom",
+  "terminal.integrated.shellIntegration.decorationsEnabled": "gutter",
+  "editor.codeLens": false,
+  "python.linting.pylintEnabled": false,
+  "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+  "lldb.launch.expressions": "native",
+  "update.mode": "start",
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "editor.accessibilitySupport": "off",
+  "vim.smartRelativeLine": true,
+  "diffEditor.codeLens": true,
+  "lldb.suppressUpdateNotifications": true,
+  "http.systemCertificatesNode": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "git.blame.editorDecoration.enabled": false,
+  "chat.tools.terminal.autoApprove": {
+    "cargo test": true
+  },
+  "chat.customAgentInSubagent.enabled": true,
+  "chat.agent.maxRequests": 100,
+  "git.untrackedChanges": "separate",
+  "remote.autoForwardPortsSource": "hybrid"
+}

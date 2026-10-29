@@ -23,7 +23,7 @@ cd $HOME
 
 echo "Backing up existing files to dotfiles-backup.."
 [ -d dotfiles-backup ] || mkdir dotfiles-backup
-BACKUP_FILES=$(cd ~/.dotfiles; "$FIND" . -name '.git' -prune -o -exec test -e ~/'{}' ';' -and -exec test -f ~/'{}' ';' -and -exec test ! -L ~/'{}' ';' -print)
+BACKUP_FILES=$(cd "$HOME/$dotfiles"; "$FIND" . -name '.git' -prune -o -name '.iterm2' -prune -o -name 'install.sh' -prune -o -exec test -e ~/'{}' ';' -and -exec test -f ~/'{}' ';' -and -exec test ! -L ~/'{}' ';' -print)
 for f in $BACKUP_FILES; do
   echo $f
    mkdir -p ~/dotfiles-backup/$(dirname "$f") && mv -fnv ~/$f dotfiles-backup/$f
@@ -34,10 +34,31 @@ echo "done."
 
 echo
 echo "Linking files in .dotfiles.."
-# Glob matches all files with a dot in front (excluding . d ..)
-"$FIND" $HOME/$dotfiles -mindepth 1 -maxdepth 1 -not '(' -name '.git' -o -name 'install.sh' ')' -exec "$CP" -Rfvs "{}" . ';'
+# Glob matches all files with a dot in front (excluding .iterm2, which iTerm2 loads directly)
+"$FIND" "$HOME/$dotfiles" -mindepth 1 -maxdepth 1 -not '(' -name '.git' -o -name '.iterm2' -o -name 'install.sh' ')' -exec "$CP" -Rfvs "{}" . ';'
 
 echo "done."
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  VSCODE_DOTFILES="$HOME/$(dirname "$dotfiles")/vscode"
+  if [ -d "$VSCODE_DOTFILES" ]; then
+    app_dir="$HOME/Library/Application Support/Code/User"
+    if [ -d "$(dirname "$app_dir")" ]; then
+      mkdir -p "$app_dir"
+      ln -sfv "$VSCODE_DOTFILES/keybindings.json" "$app_dir/keybindings.json"
+      if [ ! -e "$app_dir/settings.json" ]; then
+        cp -v "$VSCODE_DOTFILES/settings.json" "$app_dir/settings.json"
+      fi
+    fi
+  fi
+
+  MACOS_SCRIPT="$HOME/$(dirname "$dotfiles")/macos.sh"
+  if [ -x "$MACOS_SCRIPT" ]; then
+    echo
+    echo "Applying macOS system and app defaults..."
+    "$MACOS_SCRIPT"
+  fi
+fi
 
 echo
 echo "For fish colors, open fish and type:"
@@ -49,3 +70,4 @@ if [ ! -d ~/.zsh/zsh-snap ]; then
 fi
 
 mkdir -p ~/.vim/{backup,tmp}
+

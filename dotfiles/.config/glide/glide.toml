@@ -1,0 +1,11 @@
+[settings]
+default_keys = true
+
+[[window_rules]]
+if.app_name = "Photo Booth"
+float = true
+
+[[window_rules]]
+if.app_name = "Obsidian"
+if.title_substring = "Settings"
+float = true
