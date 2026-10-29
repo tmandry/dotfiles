@@ -43,6 +43,20 @@ defaults write com.apple.WindowManager AppWindowGroupingBehavior -int 1
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
+# Disable "Enable Dictation?" prompt and double-Control / microphone Dictation shortcut (164)
+defaults write com.apple.HIToolbox AppleDictationAutoEnable -int 0
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 164 '
+  <dict>
+    <key>enabled</key><false/>
+    <key>value</key><dict>
+      <key>parameters</key><array>
+        <integer>262144</integer>
+        <integer>4294705151</integer>
+      </array>
+      <key>type</key><string>modifier</string>
+    </dict>
+  </dict>'
+
 # Remap Caps Lock (0x700000039 / 30064771129) -> Escape (0x700000029 / 30064771113)
 # 1. Apply immediately for the current session via hidutil
 /usr/bin/hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}' >/dev/null 2>&1 || true
@@ -90,7 +104,10 @@ done
 # Light click threshold on Force Touch trackpad
 defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 0
 defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 0
-defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool true
+
+# Disable Force Click to open Dictionary ("Look up & data detectors")
+defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool false
+defaults write com.apple.preference.trackpad ForceClickSavedState -bool false
 
 # Mirror trackpad gestures in CurrentHost global domain
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 0
@@ -168,6 +185,8 @@ defaults write io.github.keycastr "selectedVisualizer" -string "Default"
 # ==============================================================================
 # Restart affected services
 # ==============================================================================
+
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null || true
 
 for app in "Dock" "Finder" "SystemUIServer"; do
   killall "${app}" >/dev/null 2>&1 || true
