@@ -136,7 +136,7 @@
     "axes": {
       "horizontal": false
     },
-    "show": "never"
+    "show": "auto"
   },
   "gutter": {
     "folds": false,
@@ -146,7 +146,7 @@
     "line_numbers": false,
   },
   //"seed_search_query_from_cursor": "selection",
-  "double_click_in_multibuffer": "open",
+  "double_click_in_multibuffer": "select",
   "terminal": {
     "dock": "bottom",
     "max_scroll_history_lines": 100000,

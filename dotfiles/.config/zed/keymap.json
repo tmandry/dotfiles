@@ -50,5 +50,10 @@
     "bindings": {
       "cmd-shift-k": "multi_workspace::PreviousThread"
     }
+  },
+  {
+    "bindings": {
+      "alt-shift-escape": "workspace::ToggleEditorZoom"
+    }
   }
 ]
