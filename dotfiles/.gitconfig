@@ -2,7 +2,7 @@
 	email = tmandry@gmail.com
 	name = Tyler Mandry
 [push]
-	default = tracking
+	default = simple
 [color]
 	ui = auto
 [core]
